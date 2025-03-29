@@ -169,7 +169,7 @@
         }
 
         .btn-accent:hover {
-            background: #62ff00;
+            background: #e6c200;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255,215,0,0.3);
         }
@@ -479,7 +479,7 @@
             font-size: 0.95rem;
         }
 
-        .input-group input {
+        .input-group input, .input-group textarea, .input-group select {
             width: 100%;
             padding: 15px;
             border: 2px solid #ddd;
@@ -489,9 +489,15 @@
             background: white;
             color: var(--dark);
             transition: border-color 0.3s ease;
+            font-family: 'Poppins', sans-serif;
         }
 
-        .input-group input:focus {
+        .input-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
             border-color: var(--university-blue);
         }
 
@@ -953,6 +959,95 @@
             margin-top: 15px;
         }
 
+        /* Feedback Section */
+        #feedbackDashboard {
+            display: none;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 150px auto 50px;
+            width: 90%;
+            max-width: 1000px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .feedback-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .feedback-form {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .feedback-form h3 {
+            color: var(--university-blue);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .rating-stars .star {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .rating-stars .star:hover, 
+        .rating-stars .star.active {
+            color: var(--university-gold);
+        }
+
+        .feedback-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .feedback-item {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--university-blue);
+        }
+
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .feedback-user {
+            font-weight: 600;
+            color: var(--university-blue);
+        }
+
+        .feedback-date {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .feedback-rating {
+            color: var(--university-gold);
+            margin-bottom: 10px;
+        }
+
+        .feedback-message {
+            color: #555;
+            line-height: 1.6;
+        }
+
         /* Responsive Styles */
         @media (max-width: 992px) {
             .hero h1 {
@@ -1018,7 +1113,7 @@
                 grid-template-columns: 1fr;
             }
             
-            .content, #eventDetailsDashboard, #clubsDashboard {
+            .content, #eventDetailsDashboard, #clubsDashboard, #feedbackDashboard {
                 margin: 120px auto 40px;
                 padding: 30px 20px;
             }
@@ -1582,6 +1677,67 @@
         </div>
     </div>
 
+    <!-- Feedback Dashboard -->
+    <div id="feedbackDashboard" class="content">
+        <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+        <h2>Feedback & Suggestions</h2>
+        
+        <div class="feedback-container">
+            <div class="feedback-form">
+                <h3>Share Your Feedback</h3>
+                <form id="feedbackForm">
+                    <div class="input-group">
+                        <label for="feedbackName">Your Name *</label>
+                        <input type="text" id="feedbackName" placeholder="Enter your name" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="feedbackEmail">Email Address</label>
+                        <input type="email" id="feedbackEmail" placeholder="Enter your email (optional)">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Your Rating *</label>
+                        <div class="rating-stars" id="ratingStars">
+                            <i class="fas fa-star star" data-rating="1"></i>
+                            <i class="fas fa-star star" data-rating="2"></i>
+                            <i class="fas fa-star star" data-rating="3"></i>
+                            <i class="fas fa-star star" data-rating="4"></i>
+                            <i class="fas fa-star star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="feedbackRating" value="0" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="feedbackType">Feedback Type *</label>
+                        <select id="feedbackType" required>
+                            <option value="">Select feedback type</option>
+                            <option value="suggestion">Suggestion</option>
+                            <option value="complaint">Complaint</option>
+                            <option value="praise">Praise</option>
+                            <option value="bug">Bug Report</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="feedbackMessage">Your Feedback *</label>
+                        <textarea id="feedbackMessage" placeholder="Please share your thoughts..." required></textarea>
+                    </div>
+                    
+                    <button type="button" onclick="submitFeedback()">
+                        <i class="fas fa-paper-plane"></i> Submit Feedback
+                    </button>
+                </form>
+            </div>
+            
+            <div class="feedback-list" id="feedbackList">
+                <h3>Recent Feedback</h3>
+                <!-- Feedback items will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
     <!-- Admin Login Modal -->
     <div id="adminLoginModal" class="modal">
         <div class="modal-content">
@@ -1952,6 +2108,40 @@
         let currentUser = null;
         let quizAnswers = [];
         let currentQuestion = 1;
+        let feedbacks = [
+            {
+                name: "Asfar Hossain Sitab",
+                email: "sitab@example.com",
+                rating: 5,
+                type: "praise",
+                message: "This platform is amazing! It's helped me find so many clubs that match my interests.",
+                date: "2023-10-15"
+            },
+            {
+                name: "Parmita Hossain Simia",
+                email: "simia@example.com",
+                rating: 4,
+                type: "suggestion",
+                message: "Would love to see more filtering options for events. Great job overall!",
+                date: "2023-10-10"
+            },
+            {
+                name: "Mushfida Fedous Maisha",
+                email: "maisha@example.com",
+                rating: 5,
+                type: "praise",
+                message: "The club matching quiz was spot on! Found my perfect club match.",
+                date: "2023-10-05"
+            },
+            {
+                name: "Ramiz Fariha Risha",
+                email: "risha@example.com",
+                rating: 3,
+                type: "suggestion",
+                message: "The mobile experience could be improved. Some buttons are too small to tap.",
+                date: "2023-09-28"
+            }
+        ];
 
         // Initialize the app
         function init() {
@@ -1975,6 +2165,97 @@
                 document.getElementById('adminPassword').value = admin.password;
                 document.getElementById('adminRememberMe').checked = true;
             }
+            
+            // Initialize star rating
+            initStarRating();
+            
+            // Load sample feedbacks
+            renderFeedbacks();
+        }
+
+        // Initialize star rating functionality
+        function initStarRating() {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = parseInt(this.getAttribute('data-rating'));
+                    document.getElementById('feedbackRating').value = rating;
+                    
+                    // Update star display
+                    stars.forEach((s, index) => {
+                        if (index < rating) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                });
+                
+                // Add hover effect
+                star.addEventListener('mouseover', function() {
+                    const rating = parseInt(this.getAttribute('data-rating'));
+                    stars.forEach((s, index) => {
+                        if (index < rating) {
+                            s.classList.add('hover');
+                        } else {
+                            s.classList.remove('hover');
+                        }
+                    });
+                });
+                
+                star.addEventListener('mouseout', function() {
+                    stars.forEach(s => s.classList.remove('hover'));
+                });
+            });
+        }
+
+        // Render feedback items
+        function renderFeedbacks() {
+            const feedbackList = document.getElementById('feedbackList');
+            feedbackList.innerHTML = '<h3>Recent Feedback</h3>';
+            
+            if (feedbacks.length === 0) {
+                feedbackList.innerHTML += '<p>No feedback submitted yet. Be the first to share your thoughts!</p>';
+                return;
+            }
+            
+            // Sort feedbacks by date (newest first)
+            feedbacks.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            feedbacks.forEach(feedback => {
+                const feedbackItem = document.createElement('div');
+                feedbackItem.className = 'feedback-item';
+                
+                // Format date
+                const dateObj = new Date(feedback.date);
+                const formattedDate = dateObj.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                
+                // Create stars for rating
+                let stars = '';
+                for (let i = 0; i < 5; i++) {
+                    if (i < feedback.rating) {
+                        stars += '<i class="fas fa-star"></i>';
+                    } else {
+                        stars += '<i class="far fa-star"></i>';
+                    }
+                }
+                
+                feedbackItem.innerHTML = `
+                    <div class="feedback-header">
+                        <span class="feedback-user">${feedback.name}</span>
+                        <span class="feedback-date">${formattedDate}</span>
+                    </div>
+                    <div class="feedback-rating">${stars}</div>
+                    <div class="feedback-type"><strong>Type:</strong> ${feedback.type.charAt(0).toUpperCase() + feedback.type.slice(1)}</div>
+                    <div class="feedback-message">${feedback.message}</div>
+                `;
+                
+                feedbackList.appendChild(feedbackItem);
+            });
         }
 
         // Function to show admin names
@@ -2186,7 +2467,55 @@
 
         // Feedback Function
         function showFeedback() {
-            showToast("Feedback form would be displayed here", "success");
+            hideAllSections();
+            document.getElementById('feedbackDashboard').style.display = "block";
+            document.title = "Feedback | EWU Club Hub";
+        }
+
+        // Submit feedback
+        function submitFeedback() {
+            const name = document.getElementById('feedbackName').value;
+            const email = document.getElementById('feedbackEmail').value;
+            const rating = parseInt(document.getElementById('feedbackRating').value);
+            const type = document.getElementById('feedbackType').value;
+            const message = document.getElementById('feedbackMessage').value;
+
+            // Validate inputs
+            if (!name || !rating || !type || !message) {
+                showToast("Please fill in all required fields", "error");
+                return;
+            }
+
+            if (rating < 1 || rating > 5) {
+                showToast("Please select a rating", "error");
+                return;
+            }
+
+            // Create new feedback object
+            const newFeedback = {
+                name,
+                email: email || "Not provided",
+                rating,
+                type,
+                message,
+                date: new Date().toISOString().split('T')[0] // YYYY-MM-DD format
+            };
+
+            // Add to feedbacks array
+            feedbacks.unshift(newFeedback);
+            
+            // Render updated feedback list
+            renderFeedbacks();
+            
+            // Reset form
+            document.getElementById('feedbackForm').reset();
+            document.getElementById('feedbackRating').value = 0;
+            
+            // Reset stars
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => star.classList.remove('active'));
+            
+            showToast("Thank you for your feedback!", "success");
         }
 
         // Logout Function
@@ -2239,7 +2568,7 @@
             const sections = [
                 'mainContainer', 'heroSection', 'clubOfTheDay', 'eventGallery',
                 'adminDashboard', 'userDashboard', 'eventDetailsDashboard',
-                'clubsDashboard', 'clubQuiz'
+                'clubsDashboard', 'clubQuiz', 'feedbackDashboard'
             ];
             
             sections.forEach(id => {
@@ -2371,5 +2700,5 @@
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
-</html>T e s t   c h a n g e  
+</html>< ! - -   T e s t   C h a n g e   - - >  
  
