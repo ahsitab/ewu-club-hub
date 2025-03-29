@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EWU Club Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated Background Elements -->
+    <div class="bg-pattern"></div>
+    <div class="bg-elements" id="bgElements"></div>
+
+    <!-- Header with Glass Morphism -->
+    <header class="header" id="mainHeader">
+        <div class="logo-container" onclick="showHome()">
+            <img src="8.png" alt="EWU Logo" class="logo">
+            <span class="app-name">EWU Club Hub</span>
+        </div>
+        <div class="login-logout">
+            <button id="loginBtn" class="btn btn-outline" onclick="showLogin('user')">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <button id="logoutBtn" class="btn btn-primary" onclick="logout()" style="display: none;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="heroSection" style="display: none;">
+        <div class="hero-content">
+            <h1>Discover Your Campus Community</h1>
+            <p>Join over 50 student organizations and never miss exciting events at East West University</p>
+            <div class="hero-buttons">
+                <button class="btn btn-accent" onclick="showEvents()">
+                    <i class="fas fa-calendar-alt"></i> Browse Events
+                </button>
+                <button class="btn btn-primary" onclick="showRegistration()">
+                    <i class="fas fa-user-plus"></i> Get Started
+                </button>
+                <button class="btn btn-outline" onclick="showAdminLogin()">
+                    <i class="fas fa-users-cog"></i> Host an Event
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Club of the Day Section -->
+    <section class="club-of-the-day" id="clubOfTheDay" style="display: none;">
+        <h2>Club of the Day</h2>
+        <div class="club-card">
+            <div class="club-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h3>Robotics Club</h3>
+            <p>Join our innovative community where we build robots, compete in challenges, and explore the future of automation and AI technology.</p>
+            <button class="btn btn-primary" onclick="showClubDetails('Robotics Club')">
+                <i class="fas fa-info-circle"></i> Learn More
+            </button>
+        </div>
+    </section>
+
+    <!-- Event Gallery Section -->
+    <section class="event-gallery" id="eventGallery" style="display: none;">
+        <h2>Upcoming Events</h2>
+        <div class="gallery-grid" id="eventGrid">
+            <!-- Events will be dynamically added here -->
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container" id="mainContainer">
+        <h1 id="welcomeMessage">EAST WEST UNIVERSITY Club Hub</h1>
+        <p id="subMessage" style="display: none;">Your one-stop solution for managing events and clubs!</p>
+        
+        <!-- Menu Buttons -->
+        <div class="menu">
+            <button onclick="showHome()">
+                <span class="icon"><i class="fas fa-home"></i></span> Home
+            </button>
+            <button onclick="showAdminLogin()">
+                <span class="icon"><i class="fas fa-users-cog"></i></span> Admin
+            </button>
+            <button onclick="showLogin('user')">
+                <span class="icon"><i class="fas fa-user"></i></span> User
+            </button>
+            <button onclick="showEvents()">
+                <span class="icon"><i class="fas fa-calendar-alt"></i></span> Events
+            </button>
+            <button onclick="showClubs()">
+                <span class="icon"><i class="fas fa-users"></i></span> Clubs
+            </button>
+            <button onclick="showFeedback()">
+                <span class="icon"><i class="fas fa-comment-alt"></i></span> Feedback
+            </button>
+        </div>
+
+        <!-- Club Matching Quiz Button -->
+        <button class="btn btn-primary" style="margin-top: 30px; width: 100%;" onclick="startClubQuiz()">
+            <i class="fas fa-question-circle"></i> Not sure which club to join? Take our quiz!
+        </button>
+    </div>
+
+    <!-- Event Details Dashboard -->
+    <div id="eventDetailsDashboard" class="content">
+        <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+        <h2>Event Categories</h2>
+        <div class="event-buttons">
+            <button onclick="showEvent('Concerts')">
+                <span class="icon"><i class="fas fa-music"></i></span> Concerts
+            </button>
+            <button onclick="showEvent('Workshop')">
+                <span class="icon"><i class="fas fa-tools"></i></span> Workshop
+            </button>
+            <button onclick="showEvent('Orientation')">
+                <span class="icon"><i class="fas fa-user-graduate"></i></span> Orientation
+            </button>
+            <button onclick="showEvent('Recruitment')">
+                <span class="icon"><i class="fas fa-briefcase"></i></span> Recruitment
+            </button>
+            <button onclick="showEvent('Cultural Program')">
+                <span class="icon"><i class="fas fa-theater-masks"></i></span> Cultural Program
+            </button>
+            <button onclick="showEvent('Picnic')">
+                <span class="icon"><i class="fas fa-tree"></i></span> Picnic
+            </button>
+        </div>
+    </div>
+
+    <!-- Clubs Dashboard -->
+    <div id="clubsDashboard" class="content">
+        <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+        <h2>University Clubs</h2>
+        <div class="clubs-grid">
+            <button onclick="showClubDetails('Agro-Industrialization Club')">
+                <span class="icon"><i class="fas fa-leaf"></i></span> Agro-Industrialization Club
+            </button>
+            <button onclick="showClubDetails('Business Club')">
+                <span class="icon"><i class="fas fa-briefcase"></i></span> Business Club
+            </button>
+            <button onclick="showClubDetails('Creative Marketing Club')">
+                <span class="icon"><i class="fas fa-bullhorn"></i></span> Creative Marketing Club
+            </button>
+            <button onclick="showClubDetails('Computer Programming Club')">
+                <span class="icon"><i class="fas fa-code"></i></span> Computer Programming Club
+            </button>
+            <button onclick="showClubDetails('Club for Performing Arts')">
+                <span class="icon"><i class="fas fa-theater-masks"></i></span> Performing Arts Club
+            </button>
+            <button onclick="showClubDetails('Debating Club')">
+                <span class="icon"><i class="fas fa-comments"></i></span> Debating Club
+            </button>
+            <button onclick="showClubDetails('Economics Club')">
+                <span class="icon"><i class="fas fa-chart-line"></i></span> Economics Club
+            </button>
+            <button onclick="showClubDetails('Electronics Club')">
+                <span class="icon"><i class="fas fa-microchip"></i></span> Electronics Club
+            </button>
+            <button onclick="showClubDetails('English Conversation Club')">
+                <span class="icon"><i class="fas fa-language"></i></span> English Conversation Club
+            </button>
+            <button onclick="showClubDetails('Environmental & Social Club')">
+                <span class="icon"><i class="fas fa-globe-asia"></i></span> Environmental Club
+            </button>
+            <button onclick="showClubDetails('Investment and Finance Club')">
+                <span class="icon"><i class="fas fa-hand-holding-usd"></i></span> Finance Club
+            </button>
+            <button onclick="showClubDetails('IEEE Student Branch')">
+                <span class="icon"><i class="fas fa-bolt"></i></span> IEEE Student Branch
+            </button>
+            <button onclick="showClubDetails('Model United Nation Club')">
+                <span class="icon"><i class="fas fa-globe"></i></span> Model UN Club
+            </button>
+            <button onclick="showClubDetails('Photography Club')">
+                <span class="icon"><i class="fas fa-camera"></i></span> Photography Club
+            </button>
+            <button onclick="showClubDetails('Robotics Club')">
+                <span class="icon"><i class="fas fa-robot"></i></span> Robotics Club
+            </button>
+            <button onclick="showClubDetails('Rotaract Club')">
+                <span class="icon"><i class="fas fa-hands-helping"></i></span> Rotaract Club
+            </button>
+            <button onclick="showClubDetails('Science Club')">
+                <span class="icon"><i class="fas fa-flask"></i></span> Science Club
+            </button>
+            <button onclick="showClubDetails('Sociology Club')">
+                <span class="icon"><i class="fas fa-users"></i></span> Sociology Club
+            </button>
+            <button onclick="showClubDetails('Sports Club')">
+                <span class="icon"><i class="fas fa-running"></i></span> Sports Club
+            </button>
+            <button onclick="showClubDetails('Telecommunication Club')">
+                <span class="icon"><i class="fas fa-satellite-dish"></i></span> Telecom Club
+            </button>
+            <button onclick="showClubDetails('Cyber Security Club')">
+                <span class="icon"><i class="fas fa-shield-alt"></i></span> Cyber Security Club
+            </button>
+            <button onclick="showClubDetails('EWU Health and Well-Being Club')">
+                <span class="icon"><i class="fas fa-heartbeat"></i></span> Health Club
+            </button>
+        </div>
+    </div>
+
+    <!-- Feedback Dashboard -->
+    <div id="feedbackDashboard" class="content">
+        <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+        <h2>Feedback & Suggestions</h2>
+        
+        <div class="feedback-container">
+            <div class="feedback-form">
+                <h3>Share Your Feedback</h3>
+                <form id="feedbackForm">
+                    <div class="input-group">
+                        <label for="feedbackName">Your Name *</label>
+                        <input type="text" id="feedbackName" placeholder="Enter your name" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="feedbackEmail">Email Address</label>
+                        <input type="email" id="feedbackEmail" placeholder="Enter your email (optional)">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Your Rating *</label>
+                        <div class="rating-stars" id="ratingStars">
+                            <i class="fas fa-star star" data-rating="1"></i>
+                            <i class="fas fa-star star" data-rating="2"></i>
+                            <i class="fas fa-star star" data-rating="3"></i>
+                            <i class="fas fa-star star" data-rating="4"></i>
+                            <i class="fas fa-star star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="feedbackRating" value="0" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="feedbackType">Feedback Type *</label>
+                        <select id="feedbackType" required>
+                            <option value="">Select feedback type</option>
+                            <option value="suggestion">Suggestion</option>
+                            <option value="complaint">Complaint</option>
+                            <option value="praise">Praise</option>
+                            <option value="bug">Bug Report</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="feedbackMessage">Your Feedback *</label>
+                        <textarea id="feedbackMessage" placeholder="Please share your thoughts..." required></textarea>
+                    </div>
+                    
+                    <button type="button" onclick="submitFeedback()">
+                        <i class="fas fa-paper-plane"></i> Submit Feedback
+                    </button>
+                </form>
+            </div>
+            
+            <div class="feedback-list" id="feedbackList">
+                <h3>Recent Feedback</h3>
+                <!-- Feedback items will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('adminLoginModal')">&times;</span>
+            <h2>Admin Login</h2>
+            <form>
+                <div class="input-group">
+                    <label for="adminUsername">Username *</label>
+                    <input type="text" id="adminUsername" placeholder="Enter your Username">
+                    <i class="fas fa-user input-icon"></i>
+                </div>
+                <div class="input-group">
+                    <label for="adminPassword">Password *</label>
+                    <input type="password" id="adminPassword" placeholder="Enter your Password">
+                    <i class="fas fa-lock input-icon"></i>
+                </div>
+                <div class="remember-me">
+                    <input type="checkbox" id="adminRememberMe">
+                    <label for="adminRememberMe">Remember me</label>
+                </div>
+                <button type="button" onclick="adminLogin()">
+                    <i class="fas fa-sign-in-alt"></i> LOGIN
+                </button>
+            </form>
+            <p class="footer-text"><a href="#" onclick="forgotPassword()">Forgot password?</a></p>
+        </div>
+    </div>
+
+    <!-- User Login Modal -->
+    <div id="userLoginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('userLoginModal')">&times;</span>
+            <h2>User Login</h2>
+            <form>
+                <div class="input-group">
+                    <label for="userUsername">Username *</label>
+                    <input type="text" id="userUsername" placeholder="Enter your Username">
+                    <i class="fas fa-user input-icon"></i>
+                </div>
+                <div class="input-group">
+                    <label for="userPassword">Password *</label>
+                    <input type="password" id="userPassword" placeholder="Enter your Password">
+                    <i class="fas fa-lock input-icon"></i>
+                </div>
+                <div class="remember-me">
+                    <input type="checkbox" id="userRememberMe">
+                    <label for="userRememberMe">Remember me</label>
+                </div>
+                <button type="button" onclick="userLogin()">
+                    <i class="fas fa-sign-in-alt"></i> LOGIN
+                </button>
+            </form>
+            <p class="footer-text">Don't have an account? <a href="#" onclick="showRegistration()">Sign up</a></p>
+            <p class="footer-text"><a href="#" onclick="forgotPassword()">Forgot password?</a></p>
+        </div>
+    </div>
+
+    <!-- User Registration Modal -->
+    <div id="userRegistrationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('userRegistrationModal')">&times;</span>
+            <h2>User Registration</h2>
+            <form>
+                <div class="input-group">
+                    <label for="regUsername">Username *</label>
+                    <input type="text" id="regUsername" placeholder="Enter your Username">
+                    <i class="fas fa-user input-icon"></i>
+                </div>
+                <div class="input-group">
+                    <label for="regEmail">Email *</label>
+                    <input type="email" id="regEmail" placeholder="Enter your Email">
+                    <i class="fas fa-envelope input-icon"></i>
+                </div>
+                <div class="input-group">
+                    <label for="regPassword">Password *</label>
+                    <input type="password" id="regPassword" placeholder="Enter your Password">
+                    <i class="fas fa-lock input-icon"></i>
+                </div>
+                <div class="input-group">
+                    <label for="regConfirmPassword">Confirm Password *</label>
+                    <input type="password" id="regConfirmPassword" placeholder="Confirm your Password">
+                    <i class="fas fa-lock input-icon"></i>
+                </div>
+                <button type="button" onclick="registerUser()">
+                    <i class="fas fa-user-plus"></i> REGISTER
+                </button>
+            </form>
+            <p class="footer-text">Already have an account? <a href="#" onclick="showLogin('user')">Login here</a></p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="content">
+        <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+        <h2>Admin Dashboard</h2>
+        <div class="dashboard-buttons">
+            <button onclick="manageEvents()">
+                <span class="icon"><i class="fas fa-calendar-plus"></i></span> Manage Events
+            </button>
+            <button onclick="manageVenues()">
+                <span class="icon"><i class="fas fa-map-marked-alt"></i></span> Manage Venues
+            </button>
+            <button onclick="manageSponsors()">
+                <span class="icon"><i class="fas fa-handshake"></i></span> Manage Sponsors
+            </button>
+            <button onclick="manageVendors()">
+                <span class="icon"><i class="fas fa-utensils"></i></span> Manage Vendors
+            </button>
+            <button onclick="viewReports()">
+                <span class="icon"><i class="fas fa-chart-pie"></i></span> View Reports
+            </button>
+            <button onclick="showAdminNames()">
+                <span class="icon"><i class="fas fa-info-circle"></i></span> About Developers
+            </button>
+        </div>
+    </div>
+
+    <!-- Manage Events Dashboard -->
+    <div id="manageEventsDashboard" class="content">
+        <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+        <h2>Manage Events</h2>
+        
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="openAdminTab('event', 'addEvent')">Add New Event</button>
+            <button class="tab-btn" onclick="openAdminTab('event', 'viewEvents')">View All Events</button>
+        </div>
+        
+        <div id="addEvent" class="admin-tab-content" style="display: block;">
+            <form id="eventForm">
+                <div class="input-group">
+                    <label for="eventTitle">Event Title *</label>
+                    <input type="text" id="eventTitle" placeholder="Enter event title" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="eventDescription">Description *</label>
+                    <textarea id="eventDescription" placeholder="Enter event description" required></textarea>
+                </div>
+                
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="eventDate">Date *</label>
+                        <input type="date" id="eventDate" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="eventTime">Time *</label>
+                        <input type="time" id="eventTime" required>
+                    </div>
+                </div>
+                
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="eventCategory">Category *</label>
+                        <select id="eventCategory" required>
+                            <option value="">Select category</option>
+                            <option value="Concerts">Concerts</option>
+                            <option value="Workshop">Workshop</option>
+                            <option value="Orientation">Orientation</option>
+                            <option value="Recruitment">Recruitment</option>
+                            <option value="Cultural Program">Cultural Program</option>
+                            <option value="Picnic">Picnic</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="eventVenue">Venue *</label>
+                        <select id="eventVenue" required>
+                            <option value="">Select venue</option>
+                            <!-- Venues will be populated from venues array -->
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="eventImage">Image URL</label>
+                    <input type="text" id="eventImage" placeholder="Enter image URL">
+                </div>
+                
+                <div class="input-group">
+                    <label for="eventCapacity">Capacity</label>
+                    <input type="number" id="eventCapacity" placeholder="Enter maximum attendees">
+                </div>
+                
+                <div class="input-group">
+                    <label for="eventPrice">Ticket Price (BDT)</label>
+                    <input type="number" id="eventPrice" placeholder="Enter ticket price">
+                </div>
+                
+                <button type="button" class="btn btn-primary" onclick="saveEvent()">
+                    <i class="fas fa-save"></i> Save Event
+                </button>
+            </form>
+        </div>
+        
+        <div id="viewEvents" class="admin-tab-content">
+            <div class="search-filter">
+                <input type="text" id="eventSearch" placeholder="Search events..." oninput="filterEvents()">
+                <select id="eventFilter" onchange="filterEvents()">
+                    <option value="all">All Categories</option>
+                    <option value="Concerts">Concerts</option>
+                    <option value="Workshop">Workshop</option>
+                    <option value="Orientation">Orientation</option>
+                    <option value="Recruitment">Recruitment</option>
+                    <option value="Cultural Program">Cultural Program</option>
+                    <option value="Picnic">Picnic</option>
+                </select>
+            </div>
+            
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Venue</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eventsTableBody">
+                        <!-- Events will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Venues Dashboard -->
+    <div id="manageVenuesDashboard" class="content">
+        <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+        <h2>Manage Venues</h2>
+        
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="openAdminTab('venue', 'addVenue')">Add New Venue</button>
+            <button class="tab-btn" onclick="openAdminTab('venue', 'viewVenues')">View All Venues</button>
+        </div>
+        
+        <div id="addVenue" class="admin-tab-content" style="display: block;">
+            <form id="venueForm">
+                <div class="input-group">
+                    <label for="venueName">Venue Name *</label>
+                    <input type="text" id="venueName" placeholder="Enter venue name" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="venueLocation">Location *</label>
+                    <input type="text" id="venueLocation" placeholder="Enter venue location" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="venueCapacity">Capacity *</label>
+                    <input type="number" id="venueCapacity" placeholder="Enter maximum capacity" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="venueDescription">Description</label>
+                    <textarea id="venueDescription" placeholder="Enter venue description"></textarea>
+                </div>
+                
+                <div class="input-group">
+                    <label for="venueImage">Image URL</label>
+                    <input type="text" id="venueImage" placeholder="Enter image URL">
+                </div>
+                
+                <button type="button" class="btn btn-primary" onclick="saveVenue()">
+                    <i class="fas fa-save"></i> Save Venue
+                </button>
+            </form>
+        </div>
+        
+        <div id="viewVenues" class="admin-tab-content">
+            <div class="search-filter">
+                <input type="text" id="venueSearch" placeholder="Search venues..." oninput="filterVenues()">
+            </div>
+            
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Capacity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="venuesTableBody">
+                        <!-- Venues will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Sponsors Dashboard -->
+    <div id="manageSponsorsDashboard" class="content">
+        <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+        <h2>Manage Sponsors</h2>
+        
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="openAdminTab('sponsor', 'addSponsor')">Add New Sponsor</button>
+            <button class="tab-btn" onclick="openAdminTab('sponsor', 'viewSponsors')">View All Sponsors</button>
+        </div>
+        
+        <div id="addSponsor" class="admin-tab-content" style="display: block;">
+            <form id="sponsorForm">
+                <div class="input-group">
+                    <label for="sponsorName">Sponsor Name *</label>
+                    <input type="text" id="sponsorName" placeholder="Enter sponsor name" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="sponsorType">Sponsor Type *</label>
+                    <select id="sponsorType" required>
+                        <option value="">Select type</option>
+                        <option value="Financial">Financial</option>
+                        <option value="In-Kind">In-Kind</option>
+                        <option value="Media">Media</option>
+                        <option value="Community">Community</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="sponsorContact">Contact Person *</label>
+                    <input type="text" id="sponsorContact" placeholder="Enter contact person" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="sponsorEmail">Email *</label>
+                    <input type="email" id="sponsorEmail" placeholder="Enter email" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="sponsorPhone">Phone</label>
+                    <input type="tel" id="sponsorPhone" placeholder="Enter phone number">
+                </div>
+                
+                <div class="input-group">
+                    <label for="sponsorLogo">Logo URL</label>
+                    <input type="text" id="sponsorLogo" placeholder="Enter logo URL">
+                </div>
+                
+                <button type="button" class="btn btn-primary" onclick="saveSponsor()">
+                    <i class="fas fa-save"></i> Save Sponsor
+                </button>
+            </form>
+        </div>
+        
+        <div id="viewSponsors" class="admin-tab-content">
+            <div class="search-filter">
+                <input type="text" id="sponsorSearch" placeholder="Search sponsors..." oninput="filterSponsors()">
+                <select id="sponsorFilter" onchange="filterSponsors()">
+                    <option value="all">All Types</option>
+                    <option value="Financial">Financial</option>
+                    <option value="In-Kind">In-Kind</option>
+                    <option value="Media">Media</option>
+                    <option value="Community">Community</option>
+                </select>
+            </div>
+            
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sponsorsTableBody">
+                        <!-- Sponsors will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Vendors Dashboard -->
+    <div id="manageVendorsDashboard" class="content">
+        <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+        <h2>Manage Vendors</h2>
+        
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="openAdminTab('vendor', 'addVendor')">Add New Vendor</button>
+            <button class="tab-btn" onclick="openAdminTab('vendor', 'viewVendors')">View All Vendors</button>
+        </div>
+        
+        <div id="addVendor" class="admin-tab-content" style="display: block;">
+            <form id="vendorForm">
+                <div class="input-group">
+                    <label for="vendorName">Vendor Name *</label>
+                    <input type="text" id="vendorName" placeholder="Enter vendor name" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="vendorType">Vendor Type *</label>
+                    <select id="vendorType" required>
+                        <option value="">Select type</option>
+                        <option value="Food">Food</option>
+                        <option value="Beverage">Beverage</option>
+                        <option value="Merchandise">Merchandise</option>
+                        <option value="Service">Service</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="vendorContact">Contact Person *</label>
+                    <input type="text" id="vendorContact" placeholder="Enter contact person" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="vendorEmail">Email *</label>
+                    <input type="email" id="vendorEmail" placeholder="Enter email" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="vendorPhone">Phone</label>
+                    <input type="tel" id="vendorPhone" placeholder="Enter phone number">
+                </div>
+                
+                <div class="input-group">
+                    <label for="vendorDescription">Description</label>
+                    <textarea id="vendorDescription" placeholder="Enter vendor description"></textarea>
+                </div>
+                
+                <button type="button" class="btn btn-primary" onclick="saveVendor()">
+                    <i class="fas fa-save"></i> Save Vendor
+                </button>
+            </form>
+        </div>
+        
+        <div id="viewVendors" class="admin-tab-content">
+            <div class="search-filter">
+                <input type="text" id="vendorSearch" placeholder="Search vendors..." oninput="filterVendors()">
+                <select id="vendorFilter" onchange="filterVendors()">
+                    <option value="all">All Types</option>
+                    <option value="Food">Food</option>
+                    <option value="Beverage">Beverage</option>
+                    <option value="Merchandise">Merchandise</option>
+                    <option value="Service">Service</option>
+                </select>
+            </div>
+            
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vendorsTableBody">
+                        <!-- Vendors will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Reports Dashboard -->
+    <div id="viewReportsDashboard" class="content">
+        <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+        <h2>Reports & Analytics</h2>
+        
+        <div class="report-cards">
+            <div class="report-card">
+                <div class="report-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <h3>Total Events</h3>
+                <div class="report-value" id="totalEvents">0</div>
+                <div class="report-description">Events organized this year</div>
+            </div>
+            
+            <div class="report-card">
+                <div class="report-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Total Attendees</h3>
+                <div class="report-value" id="totalAttendees">0</div>
+                <div class="report-description">People attended events</div>
+            </div>
+            
+            <div class="report-card">
+                <div class="report-icon">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <h3>Tickets Sold</h3>
+                <div class="report-value" id="ticketsSold">0</div>
+                <div class="report-description">Paid tickets purchased</div>
+            </div>
+            
+            <div class="report-card">
+                <div class="report-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <h3>Total Revenue</h3>
+                <div class="report-value" id="totalRevenue">৳0</div>
+                <div class="report-description">From ticket sales</div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <h3>Events by Category</h3>
+            <canvas id="eventsByCategoryChart"></canvas>
+        </div>
+        
+        <div class="chart-container">
+            <h3>Monthly Attendance</h3>
+            <canvas id="monthlyAttendanceChart"></canvas>
+        </div>
+    </div>
+
+    <!-- About Developers Dashboard -->
+    <div id="aboutDevelopersDashboard" class="content">
+        <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+        <h2>About The Developers</h2>
+        
+        <div class="developers-grid">
+            <div class="developer-card">
+                <div class="developer-image">
+                    <img src="9.jpg" alt="Asfar Hossain Sitab">
+                </div>
+                <h3>Asfar Hossain Sitab</h3>
+                <p class="developer-role">Lead Developer</p>
+                <p class="developer-bio">Computer Science student with expertise in web development and database management.</p>
+                <div class="developer-contact">
+                    <p><i class="fas fa-envelope"></i> sitab@example.com</p>
+                    <p><i class="fas fa-phone"></i> +880 1234 567890</p>
+                </div>
+            </div>
+            
+            <div class="developer-card">
+                <div class="developer-image">
+                    <img src="10.jpg" alt="Parmita Hossain Simia">
+                </div>
+                <h3>Parmita Hossain Simia</h3>
+                <p class="developer-role">UI/UX Designer</p>
+                <p class="developer-bio">Creative designer specializing in user experience and interface design for web applications.</p>
+                <div class="developer-contact">
+                    <p><i class="fas fa-envelope"></i> simia@example.com</p>
+                    <p><i class="fas fa-phone"></i> +880 1234 567891</p>
+                </div>
+            </div>
+            
+            <div class="developer-card">
+                <div class="developer-image">
+                    <img src="12.jpg" alt="Mushfida Fedous Maisha">
+                </div>
+                <h3>Mushfida Fedous Maisha</h3>
+                <p class="developer-role">Database Developer</p>
+                <p class="developer-bio">Software engineering student with strong skills in server-side programming and APIs.</p>
+                <div class="developer-contact">
+                    <p><i class="fas fa-envelope"></i> maisha@example.com</p>
+                    <p><i class="fas fa-phone"></i> +880 1234 567892</p>
+                </div>
+            </div>
+            
+            <div class="developer-card">
+                <div class="developer-image">
+                    <img src="11.jpg" alt="Ramiz Fariha Risha">
+                </div>
+                <h3>Ramiz Fariha Risha</h3>
+                <p class="developer-role">Database Administrator</p>
+                <p class="developer-bio">Data management specialist ensuring efficient data storage and retrieval for the application.</p>
+                <div class="developer-contact">
+                    <p><i class="fas fa-envelope"></i> risha@example.com</p>
+                    <p><i class="fas fa-phone"></i> +880 1234 567893</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="project-info">
+            <h3>About This Project</h3>
+            <p>The EWU Club Hub was developed as a capstone project by a team of Computer Science students at East West University. The application aims to streamline event management and club activities for the university community.</p>
+            
+            <h4>Technologies Used</h4>
+            <div class="tech-stack">
+                <span class="tech-badge">HTML5</span>
+                <span class="tech-badge">CSS3</span>
+                <span class="tech-badge">JavaScript</span>
+                <span class="tech-badge">Chart.js</span>
+                <span class="tech-badge">Font Awesome</span>
+                <span class="tech-badge">Google Fonts</span>
+            </div>
+            
+            <h4>Project Features</h4>
+            <ul class="features-list">
+                <li>Event management system for university clubs</li>
+                <li>Club directory with detailed information</li>
+                <li>User registration and authentication</li>
+                <li>Admin dashboard for managing events, venues, sponsors, and vendors</li>
+                <li>Comprehensive reporting and analytics</li>
+                <li>Responsive design for all devices</li>
+            </ul>
+        </div>
+    </div>
+
+    
+        <!-- User Dashboard -->
+<div id="userDashboard" class="content">
+    <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+    <h2>Welcome, <span id="userGreeting">User</span></h2>
+    
+    <div class="dashboard-buttons">
+        <button onclick="browseEvents()">
+            <span class="icon"><i class="fas fa-search"></i></span> Browse Events
+        </button>
+        <button onclick="buyTickets()">
+            <span class="icon"><i class="fas fa-ticket-alt"></i></span> Buy Tickets
+        </button>
+        <button onclick="viewBookingHistory()">
+            <span class="icon"><i class="fas fa-history"></i></span> Booking History
+        </button>
+        <button onclick="showAdminNames()">
+            <span class="icon"><i class="fas fa-info-circle"></i></span> About Developers
+        </button>
+        <button onclick="showFeedback()">
+            <span class="icon"><i class="fas fa-comment-dots"></i></span> Leave Feedback
+        </button>
+        <button onclick="startClubQuiz()">
+            <span class="icon"><i class="fas fa-question-circle"></i></span> Club Matching Quiz
+        </button>
+    </div>
+    
+    <!-- Upcoming Events Section -->
+    <div class="user-section" id="userUpcomingEvents">
+        <h3>Your Upcoming Events</h3>
+        <div class="events-list" id="userEventsList">
+            <!-- Events will be dynamically added here -->
+        </div>
+    </div>
+</div>
+
+<!-- Add this new section for event booking -->
+<div id="eventBooking" class="content">
+    <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+    <h2>Book Tickets</h2>
+    <div id="bookingEventDetails"></div>
+    <form id="bookingForm">
+        <div class="input-group">
+            <label for="bookingQuantity">Number of Tickets *</label>
+            <input type="number" id="bookingQuantity" min="1" value="1" required>
+        </div>
+        <div class="input-group">
+            <label for="bookingPayment">Payment Method *</label>
+            <select id="bookingPayment" required>
+                <option value="">Select payment method</option>
+                <option value="credit">Credit Card</option>
+                <option value="debit">Debit Card</option>
+                <option value="mobile">Mobile Banking</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="confirmBooking()">
+            <i class="fas fa-check"></i> Confirm Booking
+        </button>
+    </form>
+</div>
+
+<!-- Add this new section for booking history -->
+<div id="bookingHistory" class="content">
+    <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+    <h2>Your Booking History</h2>
+    <div class="search-filter">
+        <input type="text" id="historySearch" placeholder="Search bookings..." oninput="filterBookings()">
+    </div>
+    <div class="history-list" id="historyList">
+        <!-- Bookings will be dynamically added here -->
+    </div>
+</div>
+    </div>
+
+    <!-- Club Matching Quiz -->
+    <div class="quiz-container" id="clubQuiz">
+        <button onclick="closeQuiz()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+        <h2>Find Your Perfect Club Match</h2>
+        <p>Answer a few questions to discover which clubs align with your interests</p>
+        
+        <div class="quiz-progress">
+            <div class="quiz-progress-bar" id="quizProgress"></div>
+        </div>
+        
+        <div class="quiz-question" id="quizQuestion1">
+            <h3>What are you most interested in?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="selectOption(1, 1)">Technology & Innovation</div>
+                <div class="quiz-option" onclick="selectOption(1, 2)">Business & Finance</div>
+                <div class="quiz-option" onclick="selectOption(1, 3)">Arts & Performance</div>
+                <div class="quiz-option" onclick="selectOption(1, 4)">Social Causes & Volunteering</div>
+            </div>
+        </div>
+        
+        <div class="quiz-question" id="quizQuestion2" style="display: none;">
+            <h3>How would you describe your personality?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="selectOption(2, 1)">Analytical & Logical</div>
+                <div class="quiz-option" onclick="selectOption(2, 2)">Outgoing & Social</div>
+                <div class="quiz-option" onclick="selectOption(2, 3)">Creative & Expressive</div>
+                <div class="quiz-option" onclick="selectOption(2, 4)">Compassionate & Helpful</div>
+            </div>
+        </div>
+        
+        <div class="quiz-question" id="quizQuestion3" style="display: none;">
+            <h3>What skills do you want to develop?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="selectOption(3, 1)">Technical/Coding</div>
+                <div class="quiz-option" onclick="selectOption(3, 2)">Leadership/Management</div>
+                <div class="quiz-option" onclick="selectOption(3, 3)">Artistic/Performance</div>
+                <div class="quiz-option" onclick="selectOption(3, 4)">Communication/Teamwork</div>
+            </div>
+        </div>
+        
+        <div class="quiz-question" id="quizQuestion4" style="display: none;">
+            <h3>How much time can you commit weekly?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="selectOption(4, 1)">1-2 hours</div>
+                <div class="quiz-option" onclick="selectOption(4, 2)">3-5 hours</div>
+                <div class="quiz-option" onclick="selectOption(4, 3)">5-10 hours</div>
+                <div class="quiz-option" onclick="selectOption(4, 4)">10+ hours</div>
+            </div>
+        </div>
+        
+        <div class="quiz-question" id="quizQuestion5" style="display: none;">
+            <h3>What's your preferred activity?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="selectOption(5, 1)">Building projects</div>
+                <div class="quiz-option" onclick="selectOption(5, 2)">Networking events</div>
+                <div class="quiz-option" onclick="selectOption(5, 3)">Creative expression</div>
+                <div class="quiz-option" onclick="selectOption(5, 4)">Community service</div>
+            </div>
+        </div>
+        
+        <div class="quiz-results" id="quizResults" style="display: none;">
+            <h2>Your Recommended Clubs</h2>
+            <p>Based on your answers, these clubs might be a great fit for you!</p>
+            
+            <div class="recommended-clubs">
+                <div class="recommended-club">
+                    <div class="match-percentage">92% Match</div>
+                    <h3>Computer Programming Club</h3>
+                    <p>For students passionate about coding, software development, and technology innovation.</p>
+                    <button class="btn btn-primary" onclick="showClubDetails('Computer Programming Club')">
+                        Learn More
+                    </button>
+                </div>
+                <div class="recommended-club">
+                    <div class="match-percentage">85% Match</div>
+                    <h3>Robotics Club</h3>
+                    <p>Explore the world of robotics, automation, and artificial intelligence through hands-on projects.</p>
+                    <button class="btn btn-primary" onclick="showClubDetails('Robotics Club')">
+                        Learn More
+                    </button>
+                </div>
+                <div class="recommended-club">
+                    <div class="match-percentage">78% Match</div>
+                    <h3>IEEE Student Branch</h3>
+                    <p>Join the world's largest technical professional organization for electrical and electronics engineering.</p>
+                    <button class="btn btn-primary" onclick="showClubDetails('IEEE Student Branch')">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+            
+            <button class="btn btn-accent" style="margin-top: 30px;" onclick="startClubQuiz()">
+                <i class="fas fa-redo"></i> Retake Quiz
+            </button>
+        </div>
+        
+        <div class="quiz-navigation">
+            <button class="btn btn-outline" id="quizPrev" onclick="prevQuestion()" style="display: none;">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="btn btn-primary" id="quizNext" onclick="nextQuestion()">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+            <button class="btn btn-accent" id="quizSubmit" onclick="showResults()" style="display: none;">
+                <i class="fas fa-check"></i> See Results
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab" onclick="showFeedback()" title="Give Feedback">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toastNotification">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Operation successful!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About EWU Club Hub</h3>
+                <p>Our platform connects students with campus organizations and events, making it easier to get involved in university life.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#" onclick="showHome()"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#" onclick="showEvents()"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                    <li><a href="#" onclick="showClubs()"><i class="fas fa-users"></i> Clubs</a></li>
+                    <li><a href="#" onclick="showFeedback()"><i class="fas fa-comment-alt"></i> Feedback</a></li>
+                    <li><a href="#" onclick="showAdminLogin()"><i class="fas fa-users-cog"></i> Admin</a></li>
+<li><a href="#" onclick="showAdminNames()"><i class="fas fa-info-circle"></i> About Developers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    <li><a href="#"><i class="fas fa-exclamation-circle"></i> Report Issue</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-file-alt"></i> Terms & Conditions</a></li>
+                    <li><a href="#"><i class="fas fa-lock"></i> Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 East West University Club Hub. All Rights Reserved.</p>
+        </div>
+        
+    </footer>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
