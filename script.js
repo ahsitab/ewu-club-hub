@@ -68,7 +68,7 @@ let currentEventForBooking = null
 let feedbacks = [
     {
         name: "Asfar Hossain Sitab",
-        email: "sitab@example.com",
+        email: "ahsitab@gmail.com.com",
         rating: 5,
         type: "praise",
         message: "This platform is amazing! It's helped me find so many clubs that match my interests.",
@@ -76,7 +76,7 @@ let feedbacks = [
     },
     {
         name: "Parmita Hossain Simia",
-        email: "simia@example.com",
+        email: "phsimia@gmail.com.com",
         rating: 4,
         type: "suggestion",
         message: "Would love to see more filtering options for events. Great job overall!",
@@ -84,7 +84,7 @@ let feedbacks = [
     },
     {
         name: "Mushfida Fedous Maisha",
-        email: "maisha@example.com",
+        email: "mfmaisha@gmail.com",
         rating: 5,
         type: "praise",
         message: "The club matching quiz was spot on! Found my perfect club match.",
@@ -92,7 +92,7 @@ let feedbacks = [
     },
     {
         name: "Ramiz Fariha Risha",
-        email: "risha@example.com",
+        email: "rfrisha@gmail.com.com",
         rating: 3,
         type: "suggestion",
         message: "The mobile experience could be improved. Some buttons are too small to tap.",
@@ -1567,6 +1567,121 @@ function showResults() {
     document.getElementById('quizPrev').style.display = 'inline-block';
     document.getElementById('quizNext').style.display = 'none';
     document.getElementById('quizSubmit').style.display = 'none';
+}
+// Chatbot Functions
+let chatbotOpen = false;
+
+function toggleChatbot() {
+    const chatbotContainer = document.getElementById('chatbot-container');
+    const chatbotBody = document.getElementById('chatbot-body');
+    const toggleIcon = document.getElementById('chatbot-toggle-icon');
+    
+    if (!chatbotOpen) {
+        chatbotContainer.classList.add('active');
+        chatbotBody.classList.add('expanded');
+        toggleIcon.textContent = '-';
+        chatbotOpen = true;
+    } else {
+        chatbotBody.classList.remove('expanded');
+        setTimeout(() => {
+            chatbotContainer.classList.remove('active');
+        }, 300); // Match the transition duration
+        toggleIcon.textContent = '+';
+        chatbotOpen = false;
+    }
+}
+
+function sendChatbotMessage() {
+    const userInput = document.getElementById('chatbot-user-input');
+    const message = userInput.value.trim();
+    
+    if (message === '') return;
+    
+    // Add user message to chat
+    addChatbotMessage(message, 'user');
+    userInput.value = '';
+    
+    // Process the message and generate response
+    setTimeout(() => {
+        const response = generateChatbotResponse(message);
+        addChatbotMessage(response, 'bot');
+    }, 500);
+}
+
+function addChatbotMessage(message, sender) {
+    const messagesContainer = document.getElementById('chatbot-messages');
+    const messageElement = document.createElement('div');
+    messageElement.className = `chatbot-message ${sender}`;
+    messageElement.innerHTML = `<p>${message}</p>`;
+    messagesContainer.appendChild(messageElement);
+    
+    // Scroll to bottom
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function generateChatbotResponse(message) {
+    const lowerMessage = message.toLowerCase();
+    
+    // Simple response logic - expand this for more complex interactions
+    if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+        return "Hello there! How can I assist you with club information today?";
+    } else if (lowerMessage.includes('event') || lowerMessage.includes('activities')) {
+        return "You can find all upcoming events in the Events section. Would you like me to take you there?";
+    } else if (lowerMessage.includes('club') || lowerMessage.includes('join')) {
+        return "We have many clubs available! Check out the Clubs section or take our matching quiz to find your perfect club.";
+    } else if (lowerMessage.includes('ticket') || lowerMessage.includes('register')) {
+        return "You can register for events by clicking on them in the Events section. Some events may require ticket purchases.";
+    } else if (lowerMessage.includes('contact') || lowerMessage.includes('help')) {
+        return "For direct assistance, please visit the Feedback section to contact our support team.";
+    } else if (lowerMessage.includes('thank')) {
+        return "You're welcome! Is there anything else I can help you with?";
+    } else {
+        return "I'm sorry, I didn't understand that. Could you rephrase your question? I can help with club information, events, and general inquiries.";
+    }
+}
+
+// Initialize chatbot when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Show chatbot after a delay
+    setTimeout(() => {
+        document.getElementById('chatbot-container').classList.add('active');
+    }, 3000);
+    
+    // Allow pressing Enter to send message
+    document.getElementById('chatbot-user-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendChatbotMessage();
+        }
+    });
+});
+function addChatbotMessage(message, sender, quickReplies = []) {
+    const messagesContainer = document.getElementById('chatbot-messages');
+    const messageElement = document.createElement('div');
+    messageElement.className = `chatbot-message ${sender}`;
+    messageElement.innerHTML = `<p>${message}</p>`;
+    messagesContainer.appendChild(messageElement);
+    
+    // Add quick replies if any
+    if (quickReplies.length > 0 && sender === 'bot') {
+        const quickReplyContainer = document.createElement('div');
+        quickReplyContainer.className = 'quick-replies';
+        
+        quickReplies.forEach(reply => {
+            const button = document.createElement('button');
+            button.textContent = reply;
+            button.onclick = () => {
+                addChatbotMessage(reply, 'user');
+                const response = generateChatbotResponse(reply);
+                setTimeout(() => addChatbotMessage(response, 'bot'), 500);
+            };
+            quickReplyContainer.appendChild(button);
+        });
+        
+        messagesContainer.appendChild(quickReplyContainer);
+    }
+    
+    // Scroll to bottom
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
 // Initialize the app when DOM is loaded
