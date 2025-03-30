@@ -869,19 +869,16 @@
     </div>
 
     
-        <!-- User Dashboard -->
+<!-- User Dashboard -->
 <div id="userDashboard" class="content">
     <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
     <h2>Welcome, <span id="userGreeting">User</span></h2>
     
     <div class="dashboard-buttons">
-        <button onclick="browseEvents()">
-            <span class="icon"><i class="fas fa-search"></i></span> Browse Events
+        <button onclick="showUserEvents()">
+            <span class="icon"><i class="fas fa-calendar-alt"></i></span> View Events
         </button>
-        <button onclick="buyTickets()">
-            <span class="icon"><i class="fas fa-ticket-alt"></i></span> Buy Tickets
-        </button>
-        <button onclick="viewBookingHistory()">
+        <button onclick="showUserBookingHistory()">
             <span class="icon"><i class="fas fa-history"></i></span> Booking History
         </button>
         <button onclick="showAdminNames()">
@@ -895,52 +892,71 @@
         </button>
     </div>
     
-    <!-- Upcoming Events Section -->
-    <div class="user-section" id="userUpcomingEvents">
-        <h3>Your Upcoming Events</h3>
-        <div class="events-list" id="userEventsList">
-            <!-- Events will be dynamically added here -->
+    <!-- User Events Section -->
+    <div class="user-section" id="userEventsSection" style="display: none;">
+        <div class="section-header">
+            <h3>Available Events</h3>
+            <div class="search-filter">
+                <input type="text" id="userEventSearch" placeholder="Search events..." oninput="filterUserEvents()">
+                <select id="userEventFilter" onchange="filterUserEvents()">
+                    <option value="all">All Categories</option>
+                    <option value="Concerts">Concerts</option>
+                    <option value="Workshop">Workshop</option>
+                    <option value="Orientation">Orientation</option>
+                    <option value="Recruitment">Recruitment</option>
+                    <option value="Cultural Program">Cultural Program</option>
+                    <option value="Picnic">Picnic</option>
+                </select>
+            </div>
+        </div>
+        <div class="user-events-grid" id="userEventsGrid">
+            <!-- Events will be populated here -->
+        </div>
+    </div>
+    
+    <!-- User Booking History Section -->
+    <div class="user-section" id="userBookingHistorySection" style="display: none;">
+        <div class="section-header">
+            <h3>Your Booking History</h3>
+            <div class="search-filter">
+                <input type="text" id="userBookingSearch" placeholder="Search bookings..." oninput="filterUserBookings()">
+            </div>
+        </div>
+        <div class="user-bookings-list" id="userBookingsList">
+            <!-- Bookings will be populated here -->
         </div>
     </div>
 </div>
 
-<!-- Add this new section for event booking -->
-<div id="eventBooking" class="content">
-    <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2>Book Tickets</h2>
-    <div id="bookingEventDetails"></div>
-    <form id="bookingForm">
-        <div class="input-group">
-            <label for="bookingQuantity">Number of Tickets *</label>
-            <input type="number" id="bookingQuantity" min="1" value="1" required>
-        </div>
-        <div class="input-group">
-            <label for="bookingPayment">Payment Method *</label>
-            <select id="bookingPayment" required>
-                <option value="">Select payment method</option>
-                <option value="credit">Credit Card</option>
-                <option value="debit">Debit Card</option>
-                <option value="mobile">Mobile Banking</option>
-            </select>
-        </div>
-        <button type="button" class="btn btn-primary" onclick="confirmBooking()">
-            <i class="fas fa-check"></i> Confirm Booking
-        </button>
-    </form>
-</div>
-
-<!-- Add this new section for booking history -->
-<div id="bookingHistory" class="content">
-    <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2>Your Booking History</h2>
-    <div class="search-filter">
-        <input type="text" id="historySearch" placeholder="Search bookings..." oninput="filterBookings()">
-    </div>
-    <div class="history-list" id="historyList">
-        <!-- Bookings will be dynamically added here -->
+<!-- Event Booking Modal -->
+<div id="eventBookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('eventBookingModal')">&times;</span>
+        <h2>Book Tickets</h2>
+        <div id="bookingEventDetails"></div>
+        <form id="bookingForm">
+            <div class="input-group">
+                <label for="bookingQuantity">Number of Tickets *</label>
+                <input type="number" id="bookingQuantity" min="1" value="1" required>
+            </div>
+            <div class="input-group">
+                <label for="bookingPayment">Payment Method *</label>
+                <select id="bookingPayment" required>
+                    <option value="">Select payment method</option>
+                    <option value="credit">Credit Card</option>
+                    <option value="debit">Debit Card</option>
+                    <option value="mobile">Mobile Banking</option>
+                </select>
+            </div>
+            <div id="bookingTotal" class="booking-total">
+                Total: ৳<span id="totalAmount">0</span>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="confirmBooking()">
+                <i class="fas fa-check"></i> Confirm Booking
+            </button>
+        </form>
     </div>
 </div>
-    </div>
 
     <!-- Club Matching Quiz -->
     <div class="quiz-container" id="clubQuiz">

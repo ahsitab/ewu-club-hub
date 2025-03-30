@@ -1568,6 +1568,339 @@ function showResults() {
     document.getElementById('quizNext').style.display = 'none';
     document.getElementById('quizSubmit').style.display = 'none';
 }
+
+// Show user events
+function showUserEvents() {
+    hideAllUserSections();
+    document.getElementById('userEventsSection').style.display = "block";
+    renderUserEvents();
+}
+
+// Show user booking history
+function showUserBookingHistory() {
+    hideAllUserSections();
+    document.getElementById('userBookingHistorySection').style.display = "block";
+    renderUserBookings();
+}
+
+// Hide all user sections
+function hideAllUserSections() {
+    document.getElementById('userEventsSection').style.display = "none";
+    document.getElementById('userBookingHistorySection').style.display = "none";
+}
+
+// Render events for user
+function renderUserEvents() {
+    const eventsGrid = document.getElementById('userEventsGrid');
+    eventsGrid.innerHTML = '';
+    
+    if (events.length === 0) {
+        eventsGrid.innerHTML = '<p class="no-events">No events available at the moment.</p>';
+        return;
+    }
+    
+    events.forEach(event => {
+        const eventCard = document.createElement('div');
+        eventCard.className = 'user-event-card';
+        
+        // Format date
+        const dateObj = new Date(event.date);
+        const formattedDate = dateObj.toLocaleDateString('en-US', {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+        
+        eventCard.innerHTML = `
+            <div class="event-image">
+                <img src="${event.image}" alt="${event.title}">
+            </div>
+            <div class="event-info">
+                <h4>${event.title}</h4>
+                <p class="event-date"><i class="fas fa-calendar-alt"></i> ${formattedDate} at ${event.time}</p>
+                <p class="event-venue"><i class="fas fa-map-marker-alt"></i> ${event.venue}</p>
+                <p class="event-category"><i class="fas fa-tag"></i> ${event.category}</p>
+                <div class="event-footer">
+                    ${event.price > 0 ? `<span class="event-price">৳${event.price}</span>` : '<span class="event-price free">Free</span>'}
+                    <button class="btn btn-primary" onclick="showBookingModal(${event.id})">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        eventsGrid.appendChild(eventCard);
+    });
+}
+
+// Filter user events
+function filterUserEvents() {
+    const searchTerm = document.getElementById('userEventSearch').value.toLowerCase();
+    const filterValue = document.getElementById('userEventFilter').value;
+    
+    const filteredEvents = events.filter(event => {
+        const matchesSearch = event.title.toLowerCase().includes(searchTerm) || 
+                             event.description.toLowerCase().includes(searchTerm);
+        const matchesFilter = filterValue === 'all' || event.category === filterValue;
+        return matchesSearch && matchesFilter;
+    });
+    
+    const eventsGrid = document.getElementById('userEventsGrid');
+    eventsGrid.innerHTML = '';
+    
+    if (filteredEvents.length === 0) {
+        eventsGrid.innerHTML = '<p class="no-events">No events match your search.</p>';
+        return;
+    }
+    
+    filteredEvents.forEach(event => {
+        const eventCard = document.createElement('div');
+        eventCard.className = 'user-event-card';
+        
+        // Format date
+        const dateObj = new Date(event.date);
+        const formattedDate = dateObj.toLocaleDateString('en-US', {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+        
+        eventCard.innerHTML = `
+            <div class="event-image">
+                <img src="${event.image}" alt="${event.title}">
+            </div>
+            <div class="event-info">
+                <h4>${event.title}</h4>
+                <p class="event-date"><i class="fas fa-calendar-alt"></i> ${formattedDate} at ${event.time}</p>
+                <p class="event-venue"><i class="fas fa-map-marker-alt"></i> ${event.venue}</p>
+                <p class="event-category"><i class="fas fa-tag"></i> ${event.category}</p>
+                <div class="event-footer">
+                    ${event.price > 0 ? `<span class="event-price">৳${event.price}</span>` : '<span class="event-price free">Free</span>'}
+                    <button class="btn btn-primary" onclick="showBookingModal(${event.id})">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        eventsGrid.appendChild(eventCard);
+    });
+}
+
+// Show booking modal
+function showBookingModal(eventId) {
+    if (!currentUser) {
+        showToast("Please login to book tickets", "error");
+        showLogin('user');
+        return;
+    }
+    
+    const event = events.find(e => e.id === eventId);
+    if (!event) {
+        showToast("Event not found", "error");
+        return;
+    }
+    
+    currentEventForBooking = event;
+    
+    // Format date
+    const dateObj = new Date(event.date);
+    const formattedDate = dateObj.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    
+    document.getElementById('bookingEventDetails').innerHTML = `
+        <div class="event-booking-details">
+            <h3>${event.title}</h3>
+            <p><i class="fas fa-calendar-alt"></i> ${formattedDate} at ${event.time}</p>
+            <p><i class="fas fa-map-marker-alt"></i> ${event.venue}</p>
+            ${event.price > 0 ? `<p><i class="fas fa-ticket-alt"></i> Price per ticket: ৳${event.price}</p>` : ''}
+        </div>
+    `;
+    
+    // Update total amount
+    document.getElementById('totalAmount').textContent = event.price;
+    
+    // Show modal
+    document.getElementById('eventBookingModal').style.display = "flex";
+    setTimeout(() => {
+        document.getElementById('eventBookingModal').classList.add('show');
+    }, 10);
+}
+
+// Calculate booking total when quantity changes
+document.getElementById('bookingQuantity').addEventListener('input', function() {
+    if (currentEventForBooking) {
+        const quantity = parseInt(this.value) || 0;
+        const total = quantity * currentEventForBooking.price;
+        document.getElementById('totalAmount').textContent = total;
+    }
+});
+
+// Confirm booking
+function confirmBooking() {
+    const quantity = parseInt(document.getElementById('bookingQuantity').value);
+    const paymentMethod = document.getElementById('bookingPayment').value;
+    
+    if (!quantity || quantity < 1) {
+        showToast("Please enter a valid quantity", "error");
+        return;
+    }
+    
+    if (!paymentMethod) {
+        showToast("Please select a payment method", "error");
+        return;
+    }
+    
+    if (!currentEventForBooking || !currentUser) {
+        showToast("Booking failed. Please try again.", "error");
+        return;
+    }
+    
+    // Create new booking
+    const newBooking = {
+        id: bookings.length > 0 ? Math.max(...bookings.map(b => b.id)) + 1 : 1,
+        eventId: currentEventForBooking.id,
+        eventTitle: currentEventForBooking.title,
+        userId: currentUser.username,
+        quantity: quantity,
+        total: quantity * currentEventForBooking.price,
+        paymentMethod: paymentMethod,
+        bookingDate: new Date().toISOString().split('T')[0],
+        status: "confirmed"
+    };
+    
+    bookings.push(newBooking);
+    showToast("Booking confirmed successfully!", "success");
+    closeModal('eventBookingModal');
+    
+    // Update booking history if visible
+    if (document.getElementById('userBookingHistorySection').style.display === "block") {
+        renderUserBookings();
+    }
+}
+
+// Render user bookings
+function renderUserBookings() {
+    if (!currentUser) return;
+    
+    const bookingsList = document.getElementById('userBookingsList');
+    bookingsList.innerHTML = '';
+    
+    const userBookings = bookings.filter(b => b.userId === currentUser.username);
+    
+    if (userBookings.length === 0) {
+        bookingsList.innerHTML = '<p class="no-bookings">You have no bookings yet.</p>';
+        return;
+    }
+    
+    userBookings.forEach(booking => {
+        const bookingItem = document.createElement('div');
+        bookingItem.className = 'user-booking-item';
+        
+        // Find the event
+        const event = events.find(e => e.id === booking.eventId);
+        const eventDate = event ? new Date(event.date).toLocaleDateString('en-US', {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        }) : 'Date not available';
+        
+        bookingItem.innerHTML = `
+            <div class="booking-header">
+                <h4>${booking.eventTitle}</h4>
+                <span class="booking-status ${booking.status}">${booking.status}</span>
+            </div>
+            <div class="booking-details">
+                <p><i class="fas fa-calendar-alt"></i> ${eventDate}</p>
+                <p><i class="fas fa-ticket-alt"></i> ${booking.quantity} ticket(s)</p>
+                <p><i class="fas fa-money-bill-wave"></i> Total: ৳${booking.total}</p>
+                <p><i class="fas fa-credit-card"></i> Paid via: ${booking.paymentMethod.charAt(0).toUpperCase() + booking.paymentMethod.slice(1)}</p>
+            </div>
+            <div class="booking-footer">
+                <span class="booking-date"><i class="fas fa-clock"></i> Booked on: ${booking.bookingDate}</span>
+                ${booking.status === 'confirmed' ? `<button class="btn btn-outline" onclick="cancelBooking(${booking.id})">
+                    <i class="fas fa-times"></i> Cancel
+                </button>` : ''}
+            </div>
+        `;
+        
+        bookingsList.appendChild(bookingItem);
+    });
+}
+
+// Filter user bookings
+function filterUserBookings() {
+    if (!currentUser) return;
+    
+    const searchTerm = document.getElementById('userBookingSearch').value.toLowerCase();
+    const bookingsList = document.getElementById('userBookingsList');
+    bookingsList.innerHTML = '';
+    
+    const filteredBookings = bookings.filter(b => 
+        b.userId === currentUser.username && 
+        b.eventTitle.toLowerCase().includes(searchTerm)
+    );
+    
+    if (filteredBookings.length === 0) {
+        bookingsList.innerHTML = '<p class="no-bookings">No bookings match your search.</p>';
+        return;
+    }
+    
+    filteredBookings.forEach(booking => {
+        const bookingItem = document.createElement('div');
+        bookingItem.className = 'user-booking-item';
+        
+        // Find the event
+        const event = events.find(e => e.id === booking.eventId);
+        const eventDate = event ? new Date(event.date).toLocaleDateString('en-US', {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        }) : 'Date not available';
+        
+        bookingItem.innerHTML = `
+            <div class="booking-header">
+                <h4>${booking.eventTitle}</h4>
+                <span class="booking-status ${booking.status}">${booking.status}</span>
+            </div>
+            <div class="booking-details">
+                <p><i class="fas fa-calendar-alt"></i> ${eventDate}</p>
+                <p><i class="fas fa-ticket-alt"></i> ${booking.quantity} ticket(s)</p>
+                <p><i class="fas fa-money-bill-wave"></i> Total: ৳${booking.total}</p>
+                <p><i class="fas fa-credit-card"></i> Paid via: ${booking.paymentMethod.charAt(0).toUpperCase() + booking.paymentMethod.slice(1)}</p>
+            </div>
+            <div class="booking-footer">
+                <span class="booking-date"><i class="fas fa-clock"></i> Booked on: ${booking.bookingDate}</span>
+                ${booking.status === 'confirmed' ? `<button class="btn btn-outline" onclick="cancelBooking(${booking.id})">
+                    <i class="fas fa-times"></i> Cancel
+                </button>` : ''}
+            </div>
+        `;
+        
+        bookingsList.appendChild(bookingItem);
+    });
+}
+
+// Cancel booking
+function cancelBooking(bookingId) {
+    if (confirm("Are you sure you want to cancel this booking?")) {
+        const bookingIndex = bookings.findIndex(b => b.id === bookingId);
+        if (bookingIndex !== -1) {
+            bookings[bookingIndex].status = "cancelled";
+            showToast("Booking cancelled successfully", "success");
+            renderUserBookings();
+        }
+    }
+}
+
 // Chatbot Functions
 let chatbotOpen = false;
 
