@@ -1721,17 +1721,20 @@ body {
     width: 350px;
     background: white;
     border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 20px rgba(247, 244, 244, 0.2);
     z-index: 1000;
     overflow: visible;
-    transform: translateY(100%);
-    opacity: 0;
+    /* Remove these lines: */
+    /* transform: translateY(100%); */
+    /* opacity: 0; */
     transition: all 0.3s ease;
 }
 
+/* You can keep the .active class for any other styling you might need */
 .chatbot-container.active {
-    transform: translateY(0);
-    opacity: 1;
+    /* Remove these as they're no longer needed */
+    /* transform: translateY(0); */
+    /* opacity: 1; */
 }
 
 .chatbot-header {
@@ -1821,7 +1824,7 @@ body {
 .chatbot-input button:hover {
     background: #44002f;
 }
-// Update the CSS to include quick replies styles
+/* Update the CSS to include quick replies styles*/
 .quick-replies {
     display: flex;
     flex-wrap: wrap;

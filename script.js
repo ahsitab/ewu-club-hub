@@ -1905,24 +1905,20 @@ function cancelBooking(bookingId) {
 let chatbotOpen = false;
 
 function toggleChatbot() {
-    const chatbotContainer = document.getElementById('chatbot-container');
     const chatbotBody = document.getElementById('chatbot-body');
     const toggleIcon = document.getElementById('chatbot-toggle-icon');
     
     if (!chatbotOpen) {
-        chatbotContainer.classList.add('active');
         chatbotBody.classList.add('expanded');
         toggleIcon.textContent = '-';
         chatbotOpen = true;
     } else {
         chatbotBody.classList.remove('expanded');
-        setTimeout(() => {
-            chatbotContainer.classList.remove('active');
-        }, 300); // Match the transition duration
         toggleIcon.textContent = '+';
         chatbotOpen = false;
     }
 }
+
 
 function sendChatbotMessage() {
     const userInput = document.getElementById('chatbot-user-input');
@@ -1956,61 +1952,61 @@ function generateChatbotResponse(message) {
     const lowerMessage = message.toLowerCase();
     
     if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey') || lowerMessage.includes('greetings') || lowerMessage.includes('good morning') || lowerMessage.includes('good evening')) {
-        return "Hello there! How can I assist you today?";
-    } else if (lowerMessage.includes('event') || lowerMessage.includes('activities') || lowerMessage.includes('happening') || lowerMessage.includes('schedule') || lowerMessage.includes('calendar')) {
-        return "You can find all upcoming events in the Events section. Would you like me to take you there?";
-    } else if (lowerMessage.includes('club') || lowerMessage.includes('join') || lowerMessage.includes('membership') || lowerMessage.includes('sign up') || lowerMessage.includes('organization')) {
-        return "We have many clubs available! Check out the Clubs section or take our matching quiz to find your perfect club.";
-    } else if (lowerMessage.includes('ticket') || lowerMessage.includes('register') || lowerMessage.includes('sign me up') || lowerMessage.includes('buy ticket') || lowerMessage.includes('enroll')) {
-        return "You can register for events by clicking on them in the Events section. Some events may require ticket purchases.";
-    } else if (lowerMessage.includes('contact') || lowerMessage.includes('help') || lowerMessage.includes('support') || lowerMessage.includes('assistance') || lowerMessage.includes('customer service')) {
-        return "For direct assistance, please visit the Feedback section to contact our support team.";
-    } else if (lowerMessage.includes('thank') || lowerMessage.includes('thanks') || lowerMessage.includes('appreciate') || lowerMessage.includes('thank you')) {
-        return "You're welcome! Is there anything else I can help you with?";
-    } else if (lowerMessage.includes('location') || lowerMessage.includes('where is') || lowerMessage.includes('find')) {
-        return "You can find the club offices and event venues on our interactive map in the Locations section.";
-    } else if (lowerMessage.includes('time') || lowerMessage.includes('when') || lowerMessage.includes('schedule')) {
-        return "You can view the event schedules in the Events section to find the exact times.";
-    } else if (lowerMessage.includes('volunteer') || lowerMessage.includes('help out') || lowerMessage.includes('contribute')) {
-        return "We welcome volunteers! Check out the Volunteer section for opportunities to get involved.";
-    } else if (lowerMessage.includes('leader') || lowerMessage.includes('president') || lowerMessage.includes('coordinator')) {
-        return "Each club has its own leadership team. You can find contact details in the Clubs section.";
-    } else if (lowerMessage.includes('rules') || lowerMessage.includes('guidelines') || lowerMessage.includes('policies')) {
-        return "All club and event rules are available in the Policies section. Make sure to read them before participating!";
-    } else if (lowerMessage.includes('cost') || lowerMessage.includes('price') || lowerMessage.includes('fee') || lowerMessage.includes('how much')) {
-        return "Some clubs and events are free, while others have a fee. You can find details in the respective sections.";
-    } else if (lowerMessage.includes('food') || lowerMessage.includes('refreshments') || lowerMessage.includes('catering')) {
-        return "Some events provide refreshments. Check the event details for more information!";
-    } else if (lowerMessage.includes('speaker') || lowerMessage.includes('guest') || lowerMessage.includes('panel')) {
-        return "You can find details about guest speakers in the event descriptions.";
-    } else if (lowerMessage.includes('deadline') || lowerMessage.includes('last day') || lowerMessage.includes('until when')) {
-        return "Event and club registration deadlines are listed in the relevant sections. Make sure to sign up on time!";
-    } else if (lowerMessage.includes('cancel') || lowerMessage.includes('withdraw') || lowerMessage.includes('remove')) {
-        return "You can cancel your registration in the My Events section. Please check the cancellation policy.";
-    } else if (lowerMessage.includes('recommend') || lowerMessage.includes('suggest') || lowerMessage.includes('which club') || lowerMessage.includes('what should I join')) {
-        return "Try our Club Matching Quiz to find a club that suits your interests!";
-    } else if (lowerMessage.includes('new') || lowerMessage.includes('just joined') || lowerMessage.includes('first time') || lowerMessage.includes('beginner')) {
-        return "Welcome! Check out our New Members Guide to get started.";
-    } else if (lowerMessage.includes('feedback') || lowerMessage.includes('review') || lowerMessage.includes('rate')) {
-        return "We appreciate your feedback! You can leave reviews in the Feedback section.";
-    } else if (lowerMessage.includes('lost') || lowerMessage.includes('forgot') || lowerMessage.includes('password') || lowerMessage.includes('account')) {
-        return "If you forgot your password, you can reset it on the login page.";
-    } else if (lowerMessage.includes('about') || lowerMessage.includes('info') || lowerMessage.includes('what is')) {
-        return "You can learn more about our platform in the About Us section.";
-    } else {
-        return "I'm sorry, I didn't understand that. Could you rephrase your question? I can help with club information, events, and general inquiries.";
-    }
-    
+    return "Hello there! How can I assist you today?";
+} else if (lowerMessage.includes('event') || lowerMessage.includes('activities') || lowerMessage.includes('happening') || lowerMessage.includes('schedule') || lowerMessage.includes('calendar')) {
+    return "You can find all upcoming events in the Events section. Would you like me to take you there?";
+} else if (lowerMessage.includes('club') || lowerMessage.includes('join') || lowerMessage.includes('membership') || lowerMessage.includes('sign up') || lowerMessage.includes('organization')) {
+    return "We have many clubs available! Check out the Clubs section or take our matching quiz to find your perfect club.";
+} else if (lowerMessage.includes('ticket') || lowerMessage.includes('register') || lowerMessage.includes('sign me up') || lowerMessage.includes('buy ticket') || lowerMessage.includes('enroll')) {
+    return "You can register for events by clicking on them in the Events section. Some events may require ticket purchases.";
+} else if (lowerMessage.includes('contact') || lowerMessage.includes('help') || lowerMessage.includes('support') || lowerMessage.includes('assistance') || lowerMessage.includes('customer service')) {
+    return "For direct assistance, please visit the Feedback section to contact our support team.";
+} else if (lowerMessage.includes('thank') || lowerMessage.includes('thanks') || lowerMessage.includes('appreciate') || lowerMessage.includes('thank you')) {
+    return "You're welcome! Is there anything else I can help you with?";
+} else if (lowerMessage.includes('location') || lowerMessage.includes('where is') || lowerMessage.includes('find')) {
+    return "You can find the club offices and event venues on our interactive map in the Locations section.";
+} else if (lowerMessage.includes('time') || lowerMessage.includes('when') || lowerMessage.includes('schedule')) {
+    return "You can view the event schedules in the Events section to find the exact times.";
+} else if (lowerMessage.includes('volunteer') || lowerMessage.includes('help out') || lowerMessage.includes('contribute')) {
+    return "We welcome volunteers! Check out the Volunteer section for opportunities to get involved.";
+} else if (lowerMessage.includes('leader') || lowerMessage.includes('president') || lowerMessage.includes('coordinator')) {
+    return "Each club has its own leadership team. You can find contact details in the Clubs section.";
+} else if (lowerMessage.includes('rules') || lowerMessage.includes('guidelines') || lowerMessage.includes('policies')) {
+    return "All club and event rules are available in the Policies section. Make sure to read them before participating!";
+} else if (lowerMessage.includes('cost') || lowerMessage.includes('price') || lowerMessage.includes('fee') || lowerMessage.includes('how much')) {
+    return "Some clubs and events are free, while others have a fee. You can find details in the respective sections.";
+} else if (lowerMessage.includes('food') || lowerMessage.includes('refreshments') || lowerMessage.includes('catering')) {
+    return "Some events provide refreshments. Check the event details for more information!";
+} else if (lowerMessage.includes('speaker') || lowerMessage.includes('guest') || lowerMessage.includes('panel')) {
+    return "You can find details about guest speakers in the event descriptions.";
+} else if (lowerMessage.includes('deadline') || lowerMessage.includes('last day') || lowerMessage.includes('until when')) {
+    return "Event and club registration deadlines are listed in the relevant sections. Make sure to sign up on time!";
+} else if (lowerMessage.includes('cancel') || lowerMessage.includes('withdraw') || lowerMessage.includes('remove')) {
+    return "You can cancel your registration in the My Events section. Please check the cancellation policy.";
+} else if (lowerMessage.includes('recommend') || lowerMessage.includes('suggest') || lowerMessage.includes('which club') || lowerMessage.includes('what should I join')) {
+    return "Try our Club Matching Quiz to find a club that suits your interests!";
+} else if (lowerMessage.includes('new') || lowerMessage.includes('just joined') || lowerMessage.includes('first time') || lowerMessage.includes('beginner')) {
+    return "Welcome! Check out our New Members Guide to get started.";
+} else if (lowerMessage.includes('feedback') || lowerMessage.includes('review') || lowerMessage.includes('rate')) {
+    return "We appreciate your feedback! You can leave reviews in the Feedback section.";
+} else if (lowerMessage.includes('lost') || lowerMessage.includes('forgot') || lowerMessage.includes('password') || lowerMessage.includes('account')) {
+    return "If you forgot your password, you can reset it on the login page.";
+} else if (lowerMessage.includes('about') || lowerMessage.includes('info') || lowerMessage.includes('what is')) {
+    return "You can learn more about our platform in the About Us section.";
+} else {
+    return "I'm sorry, I didn't understand that. Could you rephrase your question? I can help with club information, events, and general inquiries.";
+}
+
 }
 
 // Initialize chatbot when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Show chatbot after a delay
-    setTimeout(() => {
-        document.getElementById('chatbot-container').classList.add('active');
-    }, 3000);
+    // Remove this setTimeout
+    // setTimeout(() => {
+    //    document.getElementById('chatbot-container').classList.add('active');
+    // }, 3000);
     
-    // Allow pressing Enter to send message
+    // Keep the rest of the initialization code
     document.getElementById('chatbot-user-input').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             sendChatbotMessage();
