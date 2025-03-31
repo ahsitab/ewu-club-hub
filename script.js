@@ -1,54 +1,71 @@
-// Initialize colorful background elements
+// Initialize background elements
+// Replace the initBackground function with this
 function initBackground() {
     const bgElements = document.getElementById('bgElements');
-    const colors = [
-        'rgba(255, 0, 255, 0.3)',    // Magenta
-        'rgba(0, 255, 255, 0.3)',     // Cyan
-        'rgba(255, 255, 0, 0.3)',      // Yellow
-        'rgba(0, 255, 0, 0.3)',        // Green
-        'rgba(255, 0, 0, 0.3)',        // Red
-        'rgba(0, 0, 255, 0.3)',        // Blue
-        'rgba(255, 165, 0, 0.3)'       // Orange
-    ];
+    bgElements.innerHTML = ''; // Clear any existing elements
     
-    // Create more elements for a richer effect
-    for (let i = 0; i < 25; i++) {
+    // Color themes
+    const themes = ['theme-1', 'theme-2', 'theme-3', 'theme-4'];
+    // Animation types
+    const animations = ['float', 'pulse', 'drift', 'swirl'];
+    
+    // Create 30 elements with random properties
+    for (let i = 0; i < 30; i++) {
         const element = document.createElement('div');
         element.className = 'bg-element';
         
-        // Random size between 30px and 250px
-        const size = Math.random() * 220 + 30;
+        // Random size between 20px and 200px
+        const size = Math.random() * 180 + 20;
         element.style.width = `${size}px`;
         element.style.height = `${size}px`;
         
         // Random position
         element.style.left = `${Math.random() * 100}%`;
-        element.style.top = `${Math.random() * 100 + 100}%`;
+        element.style.top = `${Math.random() * 100}%`;
         
-        // Random animation duration between 8s and 30s
-        const duration = Math.random() * 22 + 8;
+        // Random animation duration between 10s and 30s
+        const duration = Math.random() * 20 + 10;
         element.style.animationDuration = `${duration}s`;
         
         // Random delay
         element.style.animationDelay = `${Math.random() * 10}s`;
         
-        // Random color
-        element.style.background = colors[Math.floor(Math.random() * colors.length)];
+        // Random theme
+        const theme = themes[Math.floor(Math.random() * themes.length)];
+        element.classList.add(theme);
         
-        // Random blur for depth effect
-        element.style.filter = `blur(${Math.random() * 3}px)`;
+        // Random animation type
+        const animation = animations[Math.floor(Math.random() * animations.length)];
+        element.style.animationName = animation;
         
         // Random shape (some elements will be slightly oval)
         if (Math.random() > 0.7) {
             element.style.borderRadius = `${Math.random() * 50}%`;
         }
         
+        // Random blur for depth effect
+        element.style.filter = `blur(${Math.random() * 3}px)`;
+        
         bgElements.appendChild(element);
     }
+    
+    // Change background theme every 30 seconds
+    let currentThemeIndex = 0;
+    setInterval(() => {
+        document.querySelector('.bg-pattern').className = 'bg-pattern ' + themes[currentThemeIndex];
+        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+        
+        // Randomly change some elements' animations
+        const elements = document.querySelectorAll('.bg-element');
+        elements.forEach(el => {
+            if (Math.random() > 0.7) { // 30% chance to change animation
+                const animations = ['float', 'pulse', 'drift', 'swirl'];
+                const newAnim = animations[Math.floor(Math.random() * animations.length)];
+                el.style.animationName = newAnim;
+            }
+        });
+    }, 30000);
 }
-
-// Call the function when the page loads
-window.addEventListener('load', initBackground);
 
 // Header scroll effect
 function handleScroll() {
@@ -85,6 +102,24 @@ let quizAnswers = [];
 let currentQuestion = 1;
 let bookings = [];
 let currentEventForBooking = null
+// Add this to your init() function (replace any existing user initialization)
+users = [
+    { 
+        username: 'john', 
+        email: 'john@ewu.edu', 
+        password: 'john123' 
+    },
+    { 
+        username: 'emma', 
+        email: 'emma@ewu.edu', 
+        password: 'emma123' 
+    },
+    { 
+        username: 'mike', 
+        email: 'mike@ewu.edu', 
+        password: 'mike123' 
+    }
+];
 let feedbacks = [
     {
         name: "Asfar Hossain Sitab",
@@ -605,6 +640,324 @@ function manageSponsors() {
     renderSponsorsTable();
 }
 
+// Replace previous user management functions with these
+// Update the manageUsers function with this check
+function manageUsers() {
+    if (!currentUser || currentUser.role !== 'admin') {
+        showToast("Admin access required", "error");
+        showHome();
+        return;
+    }
+    
+    hideAllSections();
+    document.getElementById('manageUsersDashboard').style.display = "block";
+    document.title = "Manage Users | EWU Club Hub";
+    renderUsersTable();
+    updateUserStats();
+}
+
+function renderUsersTable() {
+    const tableBody = document.getElementById('usersTableBody');
+    tableBody.innerHTML = '';
+    
+    // Add admin users first
+    const admins = ['sitab', 'simia', 'maisha', 'risha'].map(username => ({
+        username,
+        email: `${username}@ewu.edu`,
+        role: 'admin',
+        joined: '2024-01-01'
+    }));
+    
+    // Combine admin users with regular users
+    const allUsers = [...admins, ...users];
+    
+    if (allUsers.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No users found</td></tr>';
+        return;
+    }
+    
+    allUsers.forEach(user => {
+        const row = document.createElement('tr');
+        
+        // Format join date
+        const joinDate = new Date(user.joined || new Date());
+        const formattedDate = joinDate.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+        
+        row.innerHTML = `
+            <td>${user.username}</td>
+            <td>${user.email || 'Not provided'}</td>
+            <td>
+                <span class="role-badge ${user.role === 'admin' ? 'admin' : 'user'}">
+                    ${user.role || 'user'}
+                </span>
+            </td>
+            <td>${formattedDate}</td>
+            <td>
+                ${user.role !== 'admin' ? `
+                <div class="action-buttons">
+                    <button class="action-btn view" onclick="viewUserDetails('${user.username}')" title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="action-btn delete" onclick="deleteUser('${user.username}')" title="Delete User">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                ` : '<span class="admin-badge">Protected</span>'}
+            </td>
+        `;
+        
+        tableBody.appendChild(row);
+    });
+}
+
+function filterUsers() {
+    const searchTerm = document.getElementById('userSearch').value.toLowerCase();
+    const roleFilter = document.getElementById('userRoleFilter').value;
+    
+    const allUsers = [...users, 
+        {username: 'sitab', email: 'sitab@ewu.edu', role: 'admin', joined: '2024-01-01'},
+        {username: 'simia', email: 'simia@ewu.edu', role: 'admin', joined: '2024-01-01'},
+        {username: 'maisha', email: 'maisha@ewu.edu', role: 'admin', joined: '2024-01-01'},
+        {username: 'risha', email: 'risha@ewu.edu', role: 'admin', joined: '2024-01-01'}
+    ];
+    
+    const filteredUsers = allUsers.filter(user => {
+        const matchesSearch = user.username.toLowerCase().includes(searchTerm) || 
+               (user.email && user.email.toLowerCase().includes(searchTerm));
+        const matchesRole = roleFilter === 'all' || user.role === roleFilter;
+        return matchesSearch && matchesRole;
+    });
+    
+    const tableBody = document.getElementById('usersTableBody');
+    tableBody.innerHTML = '';
+    
+    if (filteredUsers.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No users found</td></tr>';
+        return;
+    }
+    
+    filteredUsers.forEach(user => {
+        const row = document.createElement('tr');
+        
+        const joinDate = new Date(user.joined || new Date());
+        const formattedDate = joinDate.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+        
+        row.innerHTML = `
+            <td>${user.username}</td>
+            <td>${user.email || 'Not provided'}</td>
+            <td>
+                <span class="role-badge ${user.role === 'admin' ? 'admin' : 'user'}">
+                    ${user.role || 'user'}
+                </span>
+            </td>
+            <td>${formattedDate}</td>
+            <td>
+                ${user.role !== 'admin' ? `
+                <div class="action-buttons">
+                    <button class="action-btn view" onclick="viewUserDetails('${user.username}')" title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="action-btn delete" onclick="deleteUser('${user.username}')" title="Delete User">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                ` : '<span class="admin-badge">Protected</span>'}
+            </td>
+        `;
+        
+        tableBody.appendChild(row);
+    });
+}
+
+function updateUserStats() {
+    const totalUsers = users.length + 4; // +4 for admin accounts
+    const adminUsers = 4; // Our 4 admin accounts
+    const regularUsers = users.length;
+    
+    document.getElementById('totalUsers').textContent = totalUsers;
+    document.getElementById('adminUsers').textContent = adminUsers;
+    document.getElementById('regularUsers').textContent = regularUsers;
+    
+    // Initialize user signups chart
+    initUserSignupsChart();
+}
+
+function initUserSignupsChart() {
+    const ctx = document.getElementById('userSignupsChart').getContext('2d');
+    
+    // Sample data - in a real app you would group by month
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const signups = Array(12).fill(0);
+    
+    // Count signups per month (sample data)
+    users.forEach(user => {
+        const joinDate = new Date(user.joined || new Date());
+        const month = joinDate.getMonth();
+        signups[month]++;
+    });
+    
+    // Add admin accounts to January
+    signups[0] += 4;
+    
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: months,
+            datasets: [{
+                label: 'User Signups',
+                data: signups,
+                backgroundColor: 'rgba(0, 51, 102, 0.2)',
+                borderColor: 'rgba(0, 51, 102, 1)',
+                borderWidth: 2,
+                tension: 0.3,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+}
+
+function viewUserDetails(username) {
+    const user = users.find(u => u.username === username) || 
+                ['sitab', 'simia', 'maisha', 'risha'].includes(username) ? 
+                {username, email: `${username}@ewu.edu`, role: 'admin'} : null;
+    
+    if (!user) {
+        showToast("User not found", "error");
+        return;
+    }
+    
+    const joinDate = new Date(user.joined || new Date());
+    const formattedDate = joinDate.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    
+    const modalContent = `
+        <div class="user-details">
+            <div class="user-header">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h3>${user.username}</h3>
+                <span class="role-badge ${user.role}">${user.role}</span>
+            </div>
+            <div class="user-info">
+                <p><strong>Email:</strong> ${user.email || 'Not provided'}</p>
+                <p><strong>Joined:</strong> ${formattedDate}</p>
+                <p><strong>Status:</strong> Active</p>
+            </div>
+            ${user.role !== 'admin' ? `
+            <div class="user-actions">
+                <button class="btn btn-outline" onclick="resetUserPassword('${user.username}')">
+                    <i class="fas fa-key"></i> Reset Password
+                </button>
+                <button class="btn btn-primary" onclick="promoteToAdmin('${user.username}')">
+                    <i class="fas fa-user-shield"></i> Make Admin
+                </button>
+            </div>
+            ` : ''}
+        </div>
+    `;
+    
+    // Create a modal to show details
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.id = 'userDetailsModal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('userDetailsModal')">&times;</span>
+            <h2>User Details</h2>
+            ${modalContent}
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    modal.style.display = "flex";
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+}
+
+function resetUserPassword(username) {
+    if (confirm(`Reset password for ${username}? A temporary password will be emailed.`)) {
+        showToast(`Password reset initiated for ${username}`, "success");
+        closeModal('userDetailsModal');
+    }
+}
+
+function promoteToAdmin(username) {
+    if (confirm(`Promote ${username} to admin? This user will have full access.`)) {
+        showToast(`${username} promoted to admin`, "success");
+        closeModal('userDetailsModal');
+        // In a real app, you would update the user's role here
+    }
+}
+
+function deleteUser(username) {
+    if (confirm(`Are you sure you want to permanently delete user ${username}?`)) {
+        users = users.filter(user => user.username !== username);
+        showToast(`User ${username} deleted successfully`, "success");
+        renderUsersTable();
+        updateUserStats();
+    }
+}
+
+// Fix the logout issue by updating the logout function
+// Replace the existing logout function with this
+function logout() {
+    currentUser = null;
+    document.getElementById('loginBtn').style.display = "inline-block";
+    document.getElementById('logoutBtn').style.display = "none";
+    showToast("You have been logged out successfully", "success");
+    
+    // Close all modals
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.style.display = "none";
+        }, 300);
+    });
+    
+    // Hide all admin sections
+    const adminSections = [
+        'adminDashboard',
+        'manageEventsDashboard',
+        'manageVenuesDashboard',
+        'manageSponsorsDashboard',
+        'manageVendorsDashboard',
+        'manageUsersDashboard',
+        'viewReportsDashboard',
+        'aboutDevelopersDashboard'
+    ];
+    
+    adminSections.forEach(section => {
+        document.getElementById(section).style.display = "none";
+    });
+    
+    // Show the home section
+    showHome();
+}
 function manageVendors() {
     hideAllSections();
     document.getElementById('manageVendorsDashboard').style.display = "block";
@@ -1434,6 +1787,7 @@ function goBack() {
 }
 
 // Show Home Function
+// Replace the existing showHome function with this
 function showHome() {
     hideAllSections();
     document.getElementById('heroSection').style.display = "block";
@@ -1454,6 +1808,7 @@ function forgotPassword() {
 }
 
 // Hide all sections
+// Replace the existing hideAllSections function with this
 function hideAllSections() {
     const sections = [
         'mainContainer', 'heroSection', 'clubOfTheDay', 'eventGallery',
@@ -1461,7 +1816,8 @@ function hideAllSections() {
         'clubsDashboard', 'clubQuiz', 'feedbackDashboard',
         'manageEventsDashboard', 'manageVenuesDashboard', 
         'manageSponsorsDashboard', 'manageVendorsDashboard',
-        'viewReportsDashboard', 'aboutDevelopersDashboard'
+        'manageUsersDashboard', 'viewReportsDashboard',
+        'aboutDevelopersDashboard'
     ];
     
     sections.forEach(id => {
@@ -1925,20 +2281,24 @@ function cancelBooking(bookingId) {
 let chatbotOpen = false;
 
 function toggleChatbot() {
+    const chatbotContainer = document.getElementById('chatbot-container');
     const chatbotBody = document.getElementById('chatbot-body');
     const toggleIcon = document.getElementById('chatbot-toggle-icon');
     
     if (!chatbotOpen) {
+        chatbotContainer.classList.add('active');
         chatbotBody.classList.add('expanded');
         toggleIcon.textContent = '-';
         chatbotOpen = true;
     } else {
         chatbotBody.classList.remove('expanded');
+        setTimeout(() => {
+            chatbotContainer.classList.remove('active');
+        }, 300); // Match the transition duration
         toggleIcon.textContent = '+';
         chatbotOpen = false;
     }
 }
-
 
 function sendChatbotMessage() {
     const userInput = document.getElementById('chatbot-user-input');
@@ -1971,62 +2331,32 @@ function addChatbotMessage(message, sender) {
 function generateChatbotResponse(message) {
     const lowerMessage = message.toLowerCase();
     
-    if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey') || lowerMessage.includes('greetings') || lowerMessage.includes('good morning') || lowerMessage.includes('good evening')) {
-    return "Hello there! How can I assist you today?";
-} else if (lowerMessage.includes('event') || lowerMessage.includes('activities') || lowerMessage.includes('happening') || lowerMessage.includes('schedule') || lowerMessage.includes('calendar')) {
-    return "You can find all upcoming events in the Events section. Would you like me to take you there?";
-} else if (lowerMessage.includes('club') || lowerMessage.includes('join') || lowerMessage.includes('membership') || lowerMessage.includes('sign up') || lowerMessage.includes('organization')) {
-    return "We have many clubs available! Check out the Clubs section or take our matching quiz to find your perfect club.";
-} else if (lowerMessage.includes('ticket') || lowerMessage.includes('register') || lowerMessage.includes('sign me up') || lowerMessage.includes('buy ticket') || lowerMessage.includes('enroll')) {
-    return "You can register for events by clicking on them in the Events section. Some events may require ticket purchases.";
-} else if (lowerMessage.includes('contact') || lowerMessage.includes('help') || lowerMessage.includes('support') || lowerMessage.includes('assistance') || lowerMessage.includes('customer service')) {
-    return "For direct assistance, please visit the Feedback section to contact our support team.";
-} else if (lowerMessage.includes('thank') || lowerMessage.includes('thanks') || lowerMessage.includes('appreciate') || lowerMessage.includes('thank you')) {
-    return "You're welcome! Is there anything else I can help you with?";
-} else if (lowerMessage.includes('location') || lowerMessage.includes('where is') || lowerMessage.includes('find')) {
-    return "You can find the club offices and event venues on our interactive map in the Locations section.";
-} else if (lowerMessage.includes('time') || lowerMessage.includes('when') || lowerMessage.includes('schedule')) {
-    return "You can view the event schedules in the Events section to find the exact times.";
-} else if (lowerMessage.includes('volunteer') || lowerMessage.includes('help out') || lowerMessage.includes('contribute')) {
-    return "We welcome volunteers! Check out the Volunteer section for opportunities to get involved.";
-} else if (lowerMessage.includes('leader') || lowerMessage.includes('president') || lowerMessage.includes('coordinator')) {
-    return "Each club has its own leadership team. You can find contact details in the Clubs section.";
-} else if (lowerMessage.includes('rules') || lowerMessage.includes('guidelines') || lowerMessage.includes('policies')) {
-    return "All club and event rules are available in the Policies section. Make sure to read them before participating!";
-} else if (lowerMessage.includes('cost') || lowerMessage.includes('price') || lowerMessage.includes('fee') || lowerMessage.includes('how much')) {
-    return "Some clubs and events are free, while others have a fee. You can find details in the respective sections.";
-} else if (lowerMessage.includes('food') || lowerMessage.includes('refreshments') || lowerMessage.includes('catering')) {
-    return "Some events provide refreshments. Check the event details for more information!";
-} else if (lowerMessage.includes('speaker') || lowerMessage.includes('guest') || lowerMessage.includes('panel')) {
-    return "You can find details about guest speakers in the event descriptions.";
-} else if (lowerMessage.includes('deadline') || lowerMessage.includes('last day') || lowerMessage.includes('until when')) {
-    return "Event and club registration deadlines are listed in the relevant sections. Make sure to sign up on time!";
-} else if (lowerMessage.includes('cancel') || lowerMessage.includes('withdraw') || lowerMessage.includes('remove')) {
-    return "You can cancel your registration in the My Events section. Please check the cancellation policy.";
-} else if (lowerMessage.includes('recommend') || lowerMessage.includes('suggest') || lowerMessage.includes('which club') || lowerMessage.includes('what should I join')) {
-    return "Try our Club Matching Quiz to find a club that suits your interests!";
-} else if (lowerMessage.includes('new') || lowerMessage.includes('just joined') || lowerMessage.includes('first time') || lowerMessage.includes('beginner')) {
-    return "Welcome! Check out our New Members Guide to get started.";
-} else if (lowerMessage.includes('feedback') || lowerMessage.includes('review') || lowerMessage.includes('rate')) {
-    return "We appreciate your feedback! You can leave reviews in the Feedback section.";
-} else if (lowerMessage.includes('lost') || lowerMessage.includes('forgot') || lowerMessage.includes('password') || lowerMessage.includes('account')) {
-    return "If you forgot your password, you can reset it on the login page.";
-} else if (lowerMessage.includes('about') || lowerMessage.includes('info') || lowerMessage.includes('what is')) {
-    return "You can learn more about our platform in the About Us section.";
-} else {
-    return "I'm sorry, I didn't understand that. Could you rephrase your question? I can help with club information, events, and general inquiries.";
-}
-
+    // Simple response logic - expand this for more complex interactions
+    if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+        return "Hello there! How can I assist you with club information today?";
+    } else if (lowerMessage.includes('event') || lowerMessage.includes('activities')) {
+        return "You can find all upcoming events in the Events section. Would you like me to take you there?";
+    } else if (lowerMessage.includes('club') || lowerMessage.includes('join')) {
+        return "We have many clubs available! Check out the Clubs section or take our matching quiz to find your perfect club.";
+    } else if (lowerMessage.includes('ticket') || lowerMessage.includes('register')) {
+        return "You can register for events by clicking on them in the Events section. Some events may require ticket purchases.";
+    } else if (lowerMessage.includes('contact') || lowerMessage.includes('help')) {
+        return "For direct assistance, please visit the Feedback section to contact our support team.";
+    } else if (lowerMessage.includes('thank')) {
+        return "You're welcome! Is there anything else I can help you with?";
+    } else {
+        return "I'm sorry, I didn't understand that. Could you rephrase your question? I can help with club information, events, and general inquiries.";
+    }
 }
 
 // Initialize chatbot when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Remove this setTimeout
-    // setTimeout(() => {
-    //    document.getElementById('chatbot-container').classList.add('active');
-    // }, 3000);
+    // Show chatbot after a delay
+    setTimeout(() => {
+        document.getElementById('chatbot-container').classList.add('active');
+    }, 3000);
     
-    // Keep the rest of the initialization code
+    // Allow pressing Enter to send message
     document.getElementById('chatbot-user-input').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             sendChatbotMessage();

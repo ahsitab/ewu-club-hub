@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-   <!-- Animated Background Elements -->
-<div class="bg-pattern"></div>
-<div class="bg-elements" id="bgElements"></div>
+    <!-- Animated Background Elements -->
+    <div class="bg-pattern"></div>
+    <div class="bg-elements" id="bgElements"></div>
 
     <!-- Header with Glass Morphism -->
     <header class="header" id="mainHeader">
@@ -357,30 +357,34 @@
     </div>
 
     <!-- Admin Dashboard -->
-    <div id="adminDashboard" class="content">
-        <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
-        <h2>Admin Dashboard</h2>
-        <div class="dashboard-buttons">
-            <button onclick="manageEvents()">
-                <span class="icon"><i class="fas fa-calendar-plus"></i></span> Manage Events
-            </button>
-            <button onclick="manageVenues()">
-                <span class="icon"><i class="fas fa-map-marked-alt"></i></span> Manage Venues
-            </button>
-            <button onclick="manageSponsors()">
-                <span class="icon"><i class="fas fa-handshake"></i></span> Manage Sponsors
-            </button>
-            <button onclick="manageVendors()">
-                <span class="icon"><i class="fas fa-utensils"></i></span> Manage Vendors
-            </button>
-            <button onclick="viewReports()">
-                <span class="icon"><i class="fas fa-chart-pie"></i></span> View Reports
-            </button>
-            <button onclick="showAdminNames()">
-                <span class="icon"><i class="fas fa-info-circle"></i></span> About Developers
-            </button>
-        </div>
+    <!-- Replace the existing Admin Dashboard section with this -->
+<div id="adminDashboard" class="content">
+    <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+    <h2>Admin Dashboard</h2>
+    <div class="dashboard-buttons">
+        <button onclick="manageEvents()">
+            <span class="icon"><i class="fas fa-calendar-plus"></i></span> Manage Events
+        </button>
+        <button onclick="manageVenues()">
+            <span class="icon"><i class="fas fa-map-marked-alt"></i></span> Manage Venues
+        </button>
+        <button onclick="manageSponsors()">
+            <span class="icon"><i class="fas fa-handshake"></i></span> Manage Sponsors
+        </button>
+        <button onclick="manageVendors()">
+            <span class="icon"><i class="fas fa-utensils"></i></span> Manage Vendors
+        </button>
+        <button onclick="manageUsers()">
+            <span class="icon"><i class="fas fa-user-cog"></i></span> User Management
+        </button>
+        <button onclick="viewReports()">
+            <span class="icon"><i class="fas fa-chart-pie"></i></span> View Reports
+        </button>
+        <button onclick="showAdminNames()">
+            <span class="icon"><i class="fas fa-info-circle"></i></span> About Developers
+        </button>
     </div>
+</div>
 
     <!-- Manage Events Dashboard -->
     <div id="manageEventsDashboard" class="content">
@@ -728,6 +732,79 @@
             </div>
         </div>
     </div>
+
+    <!-- Replace the previous user management section with this -->
+<div id="manageUsersDashboard" class="content">
+    <button onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+    <h2>User Management</h2>
+    
+    <div class="admin-tabs">
+        <button class="tab-btn active" onclick="openAdminTab('user', 'viewUsers')">
+            <i class="fas fa-users"></i> View All Users
+        </button>
+        <button class="tab-btn" onclick="openAdminTab('user', 'userStats')">
+            <i class="fas fa-chart-bar"></i> User Statistics
+        </button>
+    </div>
+    
+    <div id="viewUsers" class="admin-tab-content" style="display: block;">
+        <div class="search-filter">
+            <input type="text" id="userSearch" placeholder="Search users..." oninput="filterUsers()">
+            <select id="userRoleFilter" onchange="filterUsers()">
+                <option value="all">All Roles</option>
+                <option value="user">Regular Users</option>
+                <option value="admin">Admins</option>
+            </select>
+        </div>
+        
+        <div class="admin-table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Joined</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <!-- Users will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div id="userStats" class="admin-tab-content">
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Total Users</h3>
+                <div class="stat-value" id="totalUsers">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3>Admins</h3>
+                <div class="stat-value" id="adminUsers">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>Regular Users</h3>
+                <div class="stat-value" id="regularUsers">0</div>
+            </div>
+        </div>
+        <div class="chart-container">
+            <h3>User Signups</h3>
+            <canvas id="userSignupsChart"></canvas>
+        </div>
+    </div>
+</div>
 
     <!-- View Reports Dashboard -->
     <div id="viewReportsDashboard" class="content">
@@ -1119,7 +1196,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 East West University Club Hub. All Rights Reserved.</p>
+            <p>&copy; 2023 East West University Club Hub. All Rights Reserved.</p>
         </div>
         
     </footer>
