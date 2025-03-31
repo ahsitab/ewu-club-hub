@@ -1,14 +1,23 @@
-// Initialize background elements
+// Initialize colorful background elements
 function initBackground() {
     const bgElements = document.getElementById('bgElements');
-    const colors = ['rgba(0,51,102,0.05)', 'rgba(0,51,102,0.03)', 'rgba(255,215,0,0.05)'];
+    const colors = [
+        'rgba(255, 0, 255, 0.3)',    // Magenta
+        'rgba(0, 255, 255, 0.3)',     // Cyan
+        'rgba(255, 255, 0, 0.3)',      // Yellow
+        'rgba(0, 255, 0, 0.3)',        // Green
+        'rgba(255, 0, 0, 0.3)',        // Red
+        'rgba(0, 0, 255, 0.3)',        // Blue
+        'rgba(255, 165, 0, 0.3)'       // Orange
+    ];
     
-    for (let i = 0; i < 15; i++) {
+    // Create more elements for a richer effect
+    for (let i = 0; i < 25; i++) {
         const element = document.createElement('div');
         element.className = 'bg-element';
         
-        // Random size between 50px and 200px
-        const size = Math.random() * 150 + 50;
+        // Random size between 30px and 250px
+        const size = Math.random() * 220 + 30;
         element.style.width = `${size}px`;
         element.style.height = `${size}px`;
         
@@ -16,19 +25,30 @@ function initBackground() {
         element.style.left = `${Math.random() * 100}%`;
         element.style.top = `${Math.random() * 100 + 100}%`;
         
-        // Random animation duration between 10s and 25s
-        const duration = Math.random() * 15 + 10;
+        // Random animation duration between 8s and 30s
+        const duration = Math.random() * 22 + 8;
         element.style.animationDuration = `${duration}s`;
         
         // Random delay
-        element.style.animationDelay = `${Math.random() * 5}s`;
+        element.style.animationDelay = `${Math.random() * 10}s`;
         
         // Random color
         element.style.background = colors[Math.floor(Math.random() * colors.length)];
         
+        // Random blur for depth effect
+        element.style.filter = `blur(${Math.random() * 3}px)`;
+        
+        // Random shape (some elements will be slightly oval)
+        if (Math.random() > 0.7) {
+            element.style.borderRadius = `${Math.random() * 50}%`;
+        }
+        
         bgElements.appendChild(element);
     }
 }
+
+// Call the function when the page loads
+window.addEventListener('load', initBackground);
 
 // Header scroll effect
 function handleScroll() {
