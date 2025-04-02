@@ -207,6 +207,93 @@ let events = [
     }
 ];
 
+let pastEvents = [
+    {
+        id: 101,
+        title: "Annual Cultural Fest",
+        description: "A celebration of diverse cultures with performances from all over the world",
+        date: "2024-03-15",
+        time: "16:00",
+        category: "Cultural Program",
+        venue: "Open Air Theater",
+        image: "13.jpg",
+        capacity: 500,
+        price: 150
+    },
+    {
+        id: 102,
+        title: "Tech Symposium",
+        description: "Annual technology conference featuring industry leaders and innovators",
+        date: "2024-02-20",
+        time: "09:00",
+        category: "Workshop",
+        venue: "Main Auditorium",
+        image: "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80",
+        capacity: 300,
+        price: 0
+    },
+    {
+        id: 103,
+        title: "Sports Day",
+        description: "Annual inter-department sports competition with various games and activities",
+        date: "2024-01-25",
+        time: "08:00",
+        category: "Sports",
+        venue: "University Ground",
+        image: "14.jpg",
+        capacity: 1000,
+        price: 0
+    },
+    {
+        id: 104,
+        title: "Science Fair",
+        description: "Showcase of student projects and research in various scientific disciplines",
+        date: "2023-11-10",
+        time: "10:00",
+        category: "Workshop",
+        venue: "Science Building",
+        image: "15.jpg",
+        capacity: 200,
+        price: 0
+    },
+    {
+        id: 105,
+        title: "Alumni Meet",
+        description: "Annual gathering of university alumni with networking and reminiscing",
+        date: "2023-10-05",
+        time: "18:00",
+        category: "Networking",
+        venue: "Grand Ballroom",
+        image: "16.jpg",
+        capacity: 400,
+        price: 300
+    },
+    {
+        id: 106,
+        title: "Debate Championship",
+        description: "Inter-university debate competition with teams from across the country",
+        date: "2023-09-15",
+        time: "14:00",
+        category: "Competition",
+        venue: "Debate Hall",
+        image: "17.jpg",
+        capacity: 150,
+        price: 50
+    },
+    {
+        id: 107,
+        title: "Startup Expo",
+        description: "Showcase of student-led startups looking for funding and partnerships",
+        date: "2023-08-22",
+        time: "11:00",
+        category: "Exhibition",
+        venue: "Business Building",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        capacity: 300,
+        price: 0
+    }
+];
+
 let venues = [
     {
         id: 1,
@@ -1617,8 +1704,11 @@ function initReportCharts() {
 }
 
 // Show event details
-function showEventDetails(id) {
-    const event = events.find(e => e.id === id);
+function showEventDetails(id, isPastEvent = false) {
+    const event = isPastEvent ? 
+        pastEvents.find(e => e.id === id) : 
+        events.find(e => e.id === id);
+    
     if (!event) {
         showToast("Event not found", "error");
         return;
@@ -1650,9 +1740,15 @@ function showEventDetails(id) {
                     <h4>Description</h4>
                     <p>${event.description}</p>
                 </div>
+                ${!isPastEvent ? `
                 <button class="btn btn-primary" style="width: 100%; margin-top: 20px;">
                     <i class="fas fa-ticket-alt"></i> Register Now
                 </button>
+                ` : `
+                <div class="past-event-badge">
+                    This was a past event
+                </div>
+                `}
             </div>
         </div>
     `;
@@ -1793,7 +1889,12 @@ function showHome() {
     document.getElementById('heroSection').style.display = "block";
     document.getElementById('clubOfTheDay').style.display = "block";
     document.getElementById('eventGallery').style.display = "block";
+    document.getElementById('pastEvents').style.display = "block";
     document.title = "EWU Club Hub";
+    
+    // Render both upcoming and past events
+    renderEventGallery();
+    renderPastEvents();
     
     // Scroll to top when home is clicked
     window.scrollTo({
@@ -1817,7 +1918,7 @@ function hideAllSections() {
         'manageEventsDashboard', 'manageVenuesDashboard', 
         'manageSponsorsDashboard', 'manageVendorsDashboard',
         'manageUsersDashboard', 'viewReportsDashboard',
-        'aboutDevelopersDashboard'
+        'aboutDevelopersDashboard','pastEvents'
     ];
     
     sections.forEach(id => {
@@ -2391,6 +2492,29 @@ function addChatbotMessage(message, sender, quickReplies = []) {
     
     // Scroll to bottom
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function renderPastEvents() {
+    const pastEventsGrid = document.getElementById('pastEventsGrid');
+    pastEventsGrid.innerHTML = '';
+    
+    pastEvents.forEach(event => {
+        const eventItem = document.createElement('div');
+        eventItem.className = 'gallery-item';
+        
+        eventItem.innerHTML = `
+            <img src="${event.image}" alt="${event.title}">
+            <div class="gallery-caption">
+                <h3>${event.title}</h3>
+                <p>${event.description}</p>
+                <button class="btn btn-accent" onclick="showEventDetails(${event.id}, true)">
+                    View Details
+                </button>
+            </div>
+        `;
+        
+        pastEventsGrid.appendChild(eventItem);
+    });
 }
 
 // Initialize the app when DOM is loaded

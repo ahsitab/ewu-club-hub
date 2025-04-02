@@ -2234,3 +2234,41 @@ body {
     font-size: 0.8rem;
     font-weight: bold;
 }
+
+/* Past Events Section */
+.past-events {
+    width: 100%;
+    padding: 0 5% 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.past-events h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--university-blue);
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.past-events h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, var(--university-blue), var(--university-gold));
+}
+
+.past-event-badge {
+    background: #f1f1f1;
+    color: #666;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
