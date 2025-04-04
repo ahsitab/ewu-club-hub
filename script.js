@@ -159,8 +159,8 @@ let feedbacks = [
 let events = [
     {
         id: 1,
-        title: "Orientation Day",
-        description: "Welcome our new students with an unforgettable orientation experience",
+        title: "Freshman Orientation",
+        description: "Welcome our new students with an unforgettable orientation experience featuring campus tours and faculty introductions.",
         date: "2024-11-15",
         time: "10:00",
         category: "Orientation",
@@ -171,32 +171,116 @@ let events = [
     },
     {
         id: 2,
-        title: "Annual Concert",
-        description: "Experience the best musical talents from our university",
+        title: "Senior Send-off",
+        description: "Celebrate our graduating seniors with a special farewell event including awards and alumni networking.",
+        date: "2024-11-20",
+        time: "18:00",
+        category: "Orientation",
+        venue: "Open Air Theater",
+        image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1",
+        capacity: 300,
+        price: 0
+    },
+    {
+        id: 3,
+        title: "Annual Music Festival",
+        description: "Experience the best musical talents from our university with performances from jazz to classical.",
         date: "2024-12-05",
         time: "18:00",
         category: "Concerts",
         venue: "Open Air Theater",
-        image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3",
         capacity: 300,
         price: 200
     },
     {
-        id: 3,
-        title: "Skill Development Workshops",
-        description: "Enhance your skills with our expert-led workshops",
+        id: 4,
+        title: "Jazz Night",
+        description: "An evening of smooth jazz performances by our music department featuring special guest artists.",
+        date: "2024-12-12",
+        time: "19:30",
+        category: "Concerts",
+        venue: "Music Hall",
+        image: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f",
+        capacity: 150,
+        price: 150
+    },
+    {
+        id: 5,
+        title: "Python Programming Workshop",
+        description: "Learn Python basics in this hands-on workshop for beginners. No prior experience required.",
         date: "2025-01-20",
         time: "14:00",
         category: "Workshop",
-        venue: "Room 501",
+        venue: "Computer Lab 3",
         image: "5.jpg",
-        capacity: 50,
+        capacity: 30,
         price: 100
     },
     {
-        id: 4,
-        title: "Annual Picnic",
-        description: "Relax and enjoy with friends at our fun-filled picnic",
+        id: 6,
+        title: "Public Speaking Masterclass",
+        description: "Improve your public speaking skills with our expert trainers through practical exercises.",
+        date: "2025-01-25",
+        time: "10:00",
+        category: "Workshop",
+        venue: "Room 501",
+        image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678",
+        capacity: 25,
+        price: 150
+    },
+    {
+        id: 7,
+        title: "Club Recruitment Fair",
+        description: "Meet all student clubs and find your perfect match with interactive booths and demonstrations.",
+        date: "2024-11-10",
+        time: "12:00",
+        category: "Recruitment",
+        venue: "Student Center",
+        image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+        capacity: 200,
+        price: 0
+    },
+    {
+        id: 8,
+        title: "Internship Opportunities Expo",
+        description: "Connect with companies offering internships for students across various industries.",
+        date: "2024-11-18",
+        time: "10:00",
+        category: "Recruitment",
+        venue: "Business Building Lobby",
+        image: "https://images.unsplash.com/photo-1521791136064-7986c2920216",
+        capacity: 150,
+        price: 0
+    },
+    {
+        id: 9,
+        title: "International Cultural Festival",
+        description: "Celebrate the diverse cultures of our student body with food, performances, and exhibits.",
+        date: "2024-12-15",
+        time: "16:00",
+        category: "Cultural Program",
+        venue: "Main Quad",
+        image: "13.jpg",
+        capacity: 500,
+        price: 50
+    },
+    {
+        id: 10,
+        title: "Traditional Dance Showcase",
+        description: "Performances of traditional dances from around the world by our multicultural student groups.",
+        date: "2024-12-20",
+        time: "19:00",
+        category: "Cultural Program",
+        venue: "Performing Arts Center",
+        image: "https://images.unsplash.com/photo-1547153760-18fc86324498",
+        capacity: 200,
+        price: 100
+    },
+    {
+        id: 11,
+        title: "Spring Picnic",
+        description: "Relax and enjoy with friends at our fun-filled picnic with games and outdoor activities.",
         date: "2025-01-10",
         time: "08:00",
         category: "Picnic",
@@ -204,6 +288,91 @@ let events = [
         image: "6.png",
         capacity: 200,
         price: 300
+    },
+    {
+        id: 12,
+        title: "Beach Day Trip",
+        description: "Join us for a day of fun at the nearby beach with swimming, volleyball, and barbecue.",
+        date: "2025-01-15",
+        time: "07:00",
+        category: "Picnic",
+        venue: "Cox's Bazar",
+        image: "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6",
+        capacity: 100,
+        price: 500
+    },
+    // Adding more events to ensure at least 2 per category
+    {
+        id: 13,
+        title: "Transfer Student Welcome",
+        description: "Special orientation session for transfer students to help them adjust to our university.",
+        date: "2024-11-16",
+        time: "14:00",
+        category: "Orientation",
+        venue: "Student Lounge",
+        image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1",
+        capacity: 100,
+        price: 0
+    },
+    {
+        id: 14,
+        title: "Rock Band Showcase",
+        description: "Student rock bands compete for the title of best campus band in this high-energy concert.",
+        date: "2024-12-18",
+        time: "20:00",
+        category: "Concerts",
+        venue: "Student Center",
+        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f",
+        capacity: 200,
+        price: 100
+    },
+    {
+        id: 15,
+        title: "Web Development Bootcamp",
+        description: "Intensive weekend workshop covering HTML, CSS, and JavaScript fundamentals.",
+        date: "2025-02-15",
+        time: "09:00",
+        category: "Workshop",
+        venue: "Computer Lab 2",
+        image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c",
+        capacity: 20,
+        price: 200
+    },
+    {
+        id: 16,
+        title: "Career Fair",
+        description: "Meet potential employers and explore job opportunities after graduation.",
+        date: "2024-11-25",
+        time: "11:00",
+        category: "Recruitment",
+        venue: "Main Gymnasium",
+        image: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407",
+        capacity: 500,
+        price: 0
+    },
+    {
+        id: 17,
+        title: "Heritage Day Celebration",
+        description: "Showcasing the rich cultural heritage of Bangladesh through performances and exhibits.",
+        date: "2024-12-22",
+        time: "15:00",
+        category: "Cultural Program",
+        venue: "University Grounds",
+        image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205",
+        capacity: 400,
+        price: 30
+    },
+    {
+        id: 18,
+        title: "Mountain Retreat",
+        description: "Weekend getaway to the mountains for hiking, camping, and team-building activities.",
+        date: "2025-01-25",
+        time: "07:00",
+        category: "Picnic",
+        venue: "Chittagong Hill Tracts",
+        image: "https://images.unsplash.com/photo-1455763916899-e8b50eca9967",
+        capacity: 50,
+        price: 800
     }
 ];
 
@@ -1703,60 +1872,171 @@ function initReportCharts() {
     });
 }
 
-// Show event details
-function showEventDetails(id, isPastEvent = false) {
-    const event = isPastEvent ? 
-        pastEvents.find(e => e.id === id) : 
-        events.find(e => e.id === id);
+function showEventDetails(eventId, isPastEvent = false) {
+    // Close any existing modal
+    const existingModal = document.getElementById('eventDetailsModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    // Find the event
+    const eventList = isPastEvent ? pastEvents : events;
+    const event = eventList.find(e => e.id == eventId); // Use == for loose comparison
     
     if (!event) {
         showToast("Event not found", "error");
         return;
     }
-    
+
     // Format date
     const dateObj = new Date(event.date);
     const formattedDate = dateObj.toLocaleDateString('en-US', {
+        weekday: 'long',
         year: 'numeric',
         month: 'long',
-        day: 'numeric',
-        weekday: 'long'
+        day: 'numeric'
     });
-    
-    // Create modal content
-    const modalContent = `
-        <div class="event-details">
-            <div class="event-image">
-                <img src="${event.image}" alt="${event.title}">
-            </div>
-            <div class="event-info">
-                <h3>${event.title}</h3>
-                <p><i class="fas fa-calendar-alt"></i> ${formattedDate} at ${event.time}</p>
-                <p><i class="fas fa-map-marker-alt"></i> ${event.venue}</p>
-                <p><i class="fas fa-tag"></i> ${event.category}</p>
-                ${event.price > 0 ? `<p><i class="fas fa-ticket-alt"></i> Ticket Price: ৳${event.price}</p>` : '<p><i class="fas fa-ticket-alt"></i> Free Event</p>'}
-                <p><i class="fas fa-users"></i> Capacity: ${event.capacity} attendees</p>
-                <div class="event-description">
-                    <h4>Description</h4>
-                    <p>${event.description}</p>
+
+    // Create modal HTML
+    const modalHTML = `
+        <div class="modal" id="eventDetailsModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('eventDetailsModal')">&times;</span>
+                <div class="event-details">
+                    <div class="event-image">
+                        <img src="${event.image}" alt="${event.title}" onerror="this.src='default-event.jpg'">
+                    </div>
+                    <div class="event-info">
+                        <h2>${event.title}</h2>
+                        <div class="event-meta">
+                            <p><i class="fas fa-calendar-alt"></i> ${formattedDate} at ${event.time}</p>
+                            <p><i class="fas fa-map-marker-alt"></i> ${event.venue}</p>
+                            <p><i class="fas fa-tag"></i> ${event.category}</p>
+                            ${event.price > 0 ? `<p><i class="fas fa-ticket-alt"></i> ৳${event.price} per ticket</p>` : '<p><i class="fas fa-ticket-alt"></i> Free admission</p>'}
+                            <p><i class="fas fa-users"></i> ${event.capacity} seats available</p>
+                        </div>
+                        <div class="event-description">
+                            <h3>About This Event</h3>
+                            <p>${event.description}</p>
+                        </div>
+                        ${!isPastEvent ? `
+                        <button class="btn btn-primary" onclick="showBookingModal(${event.id})" style="width: 100%; margin-top: 20px;">
+                            <i class="fas fa-ticket-alt"></i> Book Now
+                        </button>
+                        ` : `
+                        <div class="past-event-badge">
+                            This was a past event
+                        </div>
+                        `}
+                    </div>
                 </div>
-                ${!isPastEvent ? `
-                <button class="btn btn-primary" style="width: 100%; margin-top: 20px;">
-                    <i class="fas fa-ticket-alt"></i> Register Now
-                </button>
-                ` : `
-                <div class="past-event-badge">
-                    This was a past event
-                </div>
-                `}
             </div>
         </div>
     `;
+
+    // Add modal to DOM
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
     
-    // Show modal (in a real app, you would use a proper modal component)
-    alert(`Event Details:\n\n${event.title}\n\nDate: ${formattedDate}\nTime: ${event.time}\nVenue: ${event.venue}\n\n${event.description}`);
+    // Show modal
+    const modal = document.getElementById('eventDetailsModal');
+    modal.style.display = "flex";
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
 }
 
+// Global variable to track open modals
+let currentOpenModal = null;
+
+function showEventDetails(eventId, isPastEvent = false) {
+    // Close any existing modal
+    const existingModal = document.getElementById('eventDetailsModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    // Find the event
+    const eventList = isPastEvent ? pastEvents : events;
+    const event = eventList.find(e => e.id == eventId); // Use == for loose comparison
+    
+    if (!event) {
+        showToast("Event not found", "error");
+        return;
+    }
+
+    // Format date
+    const dateObj = new Date(event.date);
+    const formattedDate = dateObj.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+
+    // Create modal HTML
+    const modalHTML = `
+        <div class="modal" id="eventDetailsModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('eventDetailsModal')">&times;</span>
+                <div class="event-details">
+                    <div class="event-image">
+                        <img src="${event.image}" alt="${event.title}" onerror="this.src='default-event.jpg'">
+                    </div>
+                    <div class="event-info">
+                        <h2>${event.title}</h2>
+                        <div class="event-meta">
+                            <p><i class="fas fa-calendar-alt"></i> ${formattedDate} at ${event.time}</p>
+                            <p><i class="fas fa-map-marker-alt"></i> ${event.venue}</p>
+                            <p><i class="fas fa-tag"></i> ${event.category}</p>
+                            ${event.price > 0 ? `<p><i class="fas fa-ticket-alt"></i> ৳${event.price} per ticket</p>` : '<p><i class="fas fa-ticket-alt"></i> Free admission</p>'}
+                            <p><i class="fas fa-users"></i> ${event.capacity} seats available</p>
+                        </div>
+                        <div class="event-description">
+                            <h3>About This Event</h3>
+                            <p>${event.description}</p>
+                        </div>
+                        ${!isPastEvent ? `
+                        <button class="btn btn-primary" onclick="showBookingModal(${event.id})" style="width: 100%; margin-top: 20px;">
+                            <i class="fas fa-ticket-alt"></i> Book Now
+                        </button>
+                        ` : `
+                        <div class="past-event-badge">
+                            This was a past event
+                        </div>
+                        `}
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Add modal to DOM
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Show modal
+    const modal = document.getElementById('eventDetailsModal');
+    modal.style.display = "flex";
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+}
+
+function closeCurrentModal() {
+    if (currentOpenModal) {
+        closeModal(currentOpenModal);
+        currentOpenModal = null;
+    }
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    }
+}
 // User Dashboard Functions
 function showUserDashboard() {
     hideAllSections();
@@ -1795,13 +2075,135 @@ function showClubDetails(clubName) {
 // Events Functions
 function showEvents() {
     hideAllSections();
-    document.getElementById('eventDetailsDashboard').style.display = "block";
+    
+    // Create or show the events dashboard
+    let eventsDashboard = document.getElementById('eventDetailsDashboard');
+    if (!eventsDashboard) {
+        eventsDashboard = document.createElement('div');
+        eventsDashboard.className = 'content';
+        eventsDashboard.id = 'eventDetailsDashboard';
+        eventsDashboard.innerHTML = `
+            <h2>Event Categories</h2>
+            <div class="event-buttons">
+                <button onclick="showEvent('Concerts')">
+                    <span class="icon"><i class="fas fa-music"></i></span> Concerts
+                </button>
+                <!-- Add other category buttons here -->
+            </div>
+        `;
+        document.body.insertBefore(eventsDashboard, document.querySelector('footer'));
+    }
+    
+    eventsDashboard.style.display = 'block';
     document.title = "Event Categories | EWU Club Hub";
 }
 
-function showEvent(eventType) {
-    showToast(`Showing details for: ${eventType}`, "success");
-    // In a real app, this would show detailed event information
+function showEvent(category) {
+    hideAllSections();
+    
+    // Create or get the events container
+    let container = document.getElementById('categoryEventsContainer');
+    if (!container) {
+        container = document.createElement('div');
+        container.className = 'content';
+        container.id = 'categoryEventsContainer';
+        document.body.insertBefore(container, document.querySelector('footer'));
+    }
+
+    container.innerHTML = `
+        <button onclick="goBackToEvents()" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Categories
+        </button>
+        <h2>${category} Events</h2>
+        <div class="category-events-grid" id="categoryEventsGrid"></div>
+    `;
+    
+    container.style.display = 'block';
+    
+    // Filter and display events
+    const categoryEvents = events.filter(event => event.category === category);
+    const eventsGrid = document.getElementById('categoryEventsGrid');
+    eventsGrid.innerHTML = '';
+    
+    if (categoryEvents.length === 0) {
+        eventsGrid.innerHTML = '<p class="no-events">No events found in this category.</p>';
+        return;
+    }
+    
+    categoryEvents.forEach(event => {
+        const eventCard = document.createElement('div');
+        eventCard.className = 'event-card';
+        
+        const dateObj = new Date(event.date);
+        const formattedDate = dateObj.toLocaleDateString('en-US', {
+            weekday: 'short', 
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+        
+        eventCard.innerHTML = `
+            <div class="event-image">
+                <img src="${event.image}" alt="${event.title}" onerror="this.src='default-event.jpg'">
+            </div>
+            <div class="event-info">
+                <h3>${event.title}</h3>
+                <p><i class="fas fa-calendar-alt"></i> ${formattedDate} at ${event.time}</p>
+                <p><i class="fas fa-map-marker-alt"></i> ${event.venue}</p>
+                <p>${event.description}</p>
+                <button class="btn btn-primary" onclick="showEventDetails(${event.id})">
+                    <i class="fas fa-info-circle"></i> View Details
+                </button>
+            </div>
+        `;
+        
+        eventsGrid.appendChild(eventCard);
+    });
+}
+
+function goBackToEvents() {
+    hideAllSections();
+    showEvents();
+}
+
+function showEvents() {
+    hideAllSections();
+    
+    // Create or show the events dashboard
+    let eventsDashboard = document.getElementById('eventDetailsDashboard');
+    if (!eventsDashboard) {
+        eventsDashboard = document.createElement('div');
+        eventsDashboard.className = 'content';
+        eventsDashboard.id = 'eventDetailsDashboard';
+        eventsDashboard.innerHTML = `
+            <h2>Event Categories</h2>
+            <div class="event-buttons">
+                <button onclick="showEvent('Concerts')">
+                    <span class="icon"><i class="fas fa-music"></i></span> Concerts
+                </button>
+                <button onclick="showEvent('Workshop')">
+                    <span class="icon"><i class="fas fa-tools"></i></span> Workshop
+                </button>
+                <button onclick="showEvent('Orientation')">
+                    <span class="icon"><i class="fas fa-user-graduate"></i></span> Orientation
+                </button>
+                <button onclick="showEvent('Recruitment')">
+                    <span class="icon"><i class="fas fa-briefcase"></i></span> Recruitment
+                </button>
+                <button onclick="showEvent('Cultural Program')">
+                    <span class="icon"><i class="fas fa-theater-masks"></i></span> Cultural Program
+                </button>
+                <button onclick="showEvent('Picnic')">
+                    <span class="icon"><i class="fas fa-tree"></i></span> Picnic
+                </button>
+            </div>
+        `;
+        document.body.insertBefore(eventsDashboard, document.querySelector('footer'));
+    }
+    
+    eventsDashboard.style.display = 'block';
+    document.title = "Event Categories | EWU Club Hub";
+
 }
 
 // Feedback Function
@@ -1870,7 +2272,18 @@ function logout() {
 
 // Back Function
 function goBack() {
-    hideAllSections();
+    // Hide any open modals first
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.style.display = 'none';
+    });
+    
+    // Hide category events container if visible
+    const categoryContainer = document.getElementById('categoryEventsContainer');
+    if (categoryContainer) {
+        categoryContainer.style.display = 'none';
+    }
+    
+    // Show the appropriate view based on user state
     if (currentUser) {
         if (currentUser.role === 'admin') {
             showAdminDashboard();
@@ -1878,7 +2291,15 @@ function goBack() {
             showUserDashboard();
         }
     } else {
-        document.getElementById('mainContainer').style.display = "block";
+        // Show either the main menu or events dashboard
+        const eventsDashboard = document.getElementById('eventDetailsDashboard');
+        if (eventsDashboard && eventsDashboard.style.display !== 'none') {
+            // If coming from events, show main menu
+            showHome();
+        } else {
+            // Otherwise show events dashboard
+            showEvents();
+        }
     }
 }
 
@@ -1911,18 +2332,21 @@ function forgotPassword() {
 // Hide all sections
 // Replace the existing hideAllSections function with this
 function hideAllSections() {
-    const sections = [
-        'mainContainer', 'heroSection', 'clubOfTheDay', 'eventGallery',
-        'adminDashboard', 'userDashboard', 'eventDetailsDashboard',
-        'clubsDashboard', 'clubQuiz', 'feedbackDashboard',
-        'manageEventsDashboard', 'manageVenuesDashboard', 
+    const sectionsToHide = [
+        'mainContainer', 'heroSection', 'clubOfTheDay', 
+        'eventGallery', 'adminDashboard', 'userDashboard',
+        'clubsDashboard', 'feedbackDashboard', 'pastEvents',
+        'manageEventsDashboard', 'manageVenuesDashboard',
         'manageSponsorsDashboard', 'manageVendorsDashboard',
         'manageUsersDashboard', 'viewReportsDashboard',
-        'aboutDevelopersDashboard','pastEvents'
+        'aboutDevelopersDashboard', 'eventDetailsDashboard',
+        'categoryEventsContainer', 'clubQuiz', 'userEventsSection',
+        'userBookingHistorySection'
     ];
     
-    sections.forEach(id => {
-        document.getElementById(id).style.display = "none";
+    sectionsToHide.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) element.style.display = 'none';
     });
 }
 

@@ -265,6 +265,14 @@ body {
     margin: 0 auto;
 }
 
+.event-gallery {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--university-blue);
+    margin-bottom: 40px;
+    position: relative;
+}
+
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -425,6 +433,7 @@ body {
 }
 
 /* Modal Styles */
+/* Modal Styles */
 .modal {
     display: none;
     position: fixed;
@@ -452,7 +461,7 @@ body {
     padding: 40px;
     border-radius: 15px;
     width: 90%;
-    max-width: 500px;
+    max-width: 600px;
     text-align: left;
     position: relative;
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
@@ -466,7 +475,7 @@ body {
 
 .close {
     position: absolute;
-    right: 25px;
+    right: 12px;
     top: 25px;
     font-size: 1.8rem;
     cursor: pointer;
@@ -2272,3 +2281,140 @@ body {
     font-weight: bold;
 }
 
+/* Add this to your CSS */
+/* Category Events Container */
+#categoryEventsContainer {
+    width: 90%;
+    max-width: 1200px;
+    margin-bottom: 30px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 10;
+}
+
+/* Make sure footer stays below */
+footer {
+    position: relative;
+    z-index: 1;
+}
+
+/* Event Cards Grid */
+.category-events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.event-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.event-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.event-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.event-card:hover .event-image img {
+    transform: scale(1.05);
+}
+
+.event-info {
+    padding: 20px;
+}
+
+.event-info h3 {
+    color: var(--university-blue);
+    margin-bottom: 15px;
+}
+
+.event-info p {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.no-events {
+    text-align: center;
+    padding: 50px;
+    color: #666;
+    grid-column: 1/-1;
+}
+
+
+/* Event Details Styles */
+.event-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.event-image {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.event-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.event-info h2 {
+    color: var(--university-blue);
+    margin-bottom: 15px;
+}
+
+.event-meta p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.event-meta i {
+    width: 20px;
+    text-align: center;
+    color: var(--university-blue);
+}
+
+.event-description h3 {
+    color: var(--university-blue);
+    margin: 20px 0 10px;
+}
+
+.event-description p {
+    line-height: 1.6;
+    color: #555;
+}
+
+.past-event-badge {
+    background: #f1f1f1;
+    color: #666;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
