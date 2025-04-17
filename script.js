@@ -558,6 +558,48 @@ let vendors = [
     }
 ];
 
+// Define club data with names, icons, and links
+const clubs = [
+    { name: "Agro-Industrialization Club", icon: "fa-leaf", link: "https://clubs.ewubd.edu/ewuaic" },
+    { name: "Business Club", icon: "fa-briefcase", link: "http://clubs.ewubd.edu/ewubc" },
+    { name: "Creative Marketing Club", icon: "fa-bullhorn", link: "https://clubs.ewubd.edu/ewucmc" },
+    { name: "Computer Programming Club", icon: "fa-code", link: "https://clubs.ewubd.edu/ewucopc" },
+    { name: "Performing Arts Club", icon: "fa-theater-masks", link: "https://clubs.ewubd.edu/ecpa" },
+    { name: "Debating Club", icon: "fa-comments", link: "https://clubs.ewubd.edu/ewudc" },
+    { name: "Economics Club", icon: "fa-chart-line", link: "https://clubs.ewubd.edu/ewuecon" },
+    { name: "Electronics Club", icon: "fa-microchip", link: "https://clubs.ewubd.edu/ewuec" },
+    { name: "English Conversation Club", icon: "fa-language", link: "https://clubs.ewubd.edu/ewuecc" },
+    { name: "Environmental Club", icon: "fa-globe-asia", link: "https://clubs.ewubd.edu/ewuesc" },
+    { name: "Finance Club", icon: "fa-hand-holding-usd", link: "http://clubs.ewubd.edu/ewuifc" },
+    { name: "IEEE Student Branch", icon: "fa-bolt", link: "https://clubs.ewubd.edu/ieeesb" },
+    { name: "Model UN Club", icon: "fa-globe", link: "https://clubs.ewubd.edu/ewumunc" },
+    { name: "Photography Club", icon: "fa-camera", link: "https://clubs.ewubd.edu/ewupc" },
+    { name: "Robotics Club", icon: "fa-robot", link: "https://clubs.ewubd.edu/ewurc" },
+    { name: "Rotaract Club", icon: "fa-hands-helping", link: "clubs.ewubd.edu/rcewu" },
+    { name: "Science Club", icon: "fa-flask", link: "https://clubs.ewubd.edu/ewuscc" },
+    { name: "Sociology Club", icon: "fa-users", link: "http://clubs.ewubd.edu/scewu" },
+    { name: "Sports Club", icon: "fa-running", link: "https://clubs.ewubd.edu/sportsclub" },
+    { name: "Telecom Club", icon: "fa-satellite-dish", link: "https://clubs.ewubd.edu/ewutc" },
+    { name: "Cyber Security Club", icon: "fa-shield-alt", link: "https://clubs.ewubd.edu/ewucsc" },
+    { name: "Health Club", icon: "fa-heartbeat", link: "http://clubs.ewubd.edu/ehwc" }
+];
+
+// Function to generate club buttons
+function renderClubs() {
+    const clubsGrid = document.querySelector('.clubs-grid');
+    clubsGrid.innerHTML = ''; // Clear existing buttons
+
+    clubs.forEach(club => {
+        const button = document.createElement('button');
+        button.innerHTML = `<span class="icon"><i class="fas ${club.icon}"></i></span> ${club.name}`;
+        button.onclick = () => window.open(club.link, '_blank');
+        clubsGrid.appendChild(button);
+    });
+}
+
+// Call this function when the page loads or when showing the clubs section
+document.addEventListener('DOMContentLoaded', renderClubs);
+
 // Initialize the app
 function init() {
     initBackground();
