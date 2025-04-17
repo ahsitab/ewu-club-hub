@@ -2496,3 +2496,54 @@ footer {
         display: none;
     }
 }
+
+.dashboard-buttons button:first-child {
+    background: var(--university-gold);
+    color: var(--university-blue);
+    border: 2px solid var(--university-gold);
+}
+
+.dashboard-buttons button:first-child:hover {
+    background: #e6c200;
+    border-color: #e6c200;
+}
+
+.clubs-grid button {
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative; /* For link icon */
+}
+
+/* Hover effect */
+.clubs-grid button:hover {
+    background: var(--university-blue);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Optional: Add a small link icon (🔗) on hover */
+.clubs-grid button:hover::after {
+    content: "🔗";
+    position: absolute;
+    right: 15px;
+    font-size: 0.9em;
+}
+
+.clubs-grid button .icon {
+    margin-right: 8px;
+}
+
+/* Add an external link icon */
+.clubs-grid button i.fas.fa-external-link-alt {
+    margin-left: 5px;
+    font-size: 0.8em;
+    opacity: 0.7;
+}
+
+
+
+
+
+/* git add .
+git commit -m "Trigger GitHub Pages rebuild"
+git push origin main */

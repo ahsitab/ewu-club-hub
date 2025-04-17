@@ -1,0 +1,5 @@
+{
+  "mongoURI": "mongodb+srv://ahsitab:ahsitab92@cluster0.aysfxvn.mongodb.net/ewu-club-hub?retryWrites=true&w=majority",
+  "jwtSecret": "ewu_club_hub_secret_2023",
+  "debug": true
+}
