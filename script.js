@@ -1,5 +1,6 @@
 // Initialize background elements
 // Replace the initBackground function with this
+
 function initBackground() {
     const bgElements = document.getElementById('bgElements');
     bgElements.innerHTML = ''; // Clear any existing elements
@@ -102,6 +103,8 @@ let quizAnswers = [];
 let currentQuestion = 1;
 let bookings = [];
 let currentEventForBooking = null
+// Add this near the top with your other global variables
+let navigationHistory = [];
 // Add this to your init() function (replace any existing user initialization)
 users = [
     { 
@@ -2107,6 +2110,9 @@ function showClubs() {
     hideAllSections();
     document.getElementById('clubsDashboard').style.display = "block";
     document.title = "University Clubs | EWU Club Hub";
+    
+    // Add to navigation history
+    navigationHistory.push('clubs');
 }
 
 function showClubDetails(clubName) {
@@ -2319,30 +2325,46 @@ function goBack() {
         modal.style.display = 'none';
     });
     
-    // Hide category events container if visible
-    const categoryContainer = document.getElementById('categoryEventsContainer');
-    if (categoryContainer) {
-        categoryContainer.style.display = 'none';
+    // Remove current page from history
+    navigationHistory.pop();
+    
+    // Get the previous page
+    const previousPage = navigationHistory[navigationHistory.length - 1] || 'home';
+    
+    // Navigate to previous page
+    switch(previousPage) {
+        case 'home':
+            showHome();
+            break;
+        case 'clubs':
+            showClubs();
+            break;
+        case 'events':
+            showEvents();
+            break;
+        case 'feedback':
+            showFeedback();
+            break;
+        case 'admin':
+            if (currentUser && currentUser.role === 'admin') {
+                showAdminDashboard();
+            } else {
+                showHome();
+            }
+            break;
+        case 'user':
+            if (currentUser) {
+                showUserDashboard();
+            } else {
+                showHome();
+            }
+            break;
+        default:
+            showHome();
     }
     
-    // Show the appropriate view based on user state
-    if (currentUser) {
-        if (currentUser.role === 'admin') {
-            showAdminDashboard();
-        } else {
-            showUserDashboard();
-        }
-    } else {
-        // Show either the main menu or events dashboard
-        const eventsDashboard = document.getElementById('eventDetailsDashboard');
-        if (eventsDashboard && eventsDashboard.style.display !== 'none') {
-            // If coming from events, show main menu
-            showHome();
-        } else {
-            // Otherwise show events dashboard
-            showEvents();
-        }
-    }
+    // Remove the previous page from history so we don't get stuck in a loop
+    navigationHistory.pop();
 }
 
 // Show Home Function
@@ -2354,6 +2376,9 @@ function showHome() {
     document.getElementById('eventGallery').style.display = "block";
     document.getElementById('pastEvents').style.display = "block";
     document.title = "EWU Club Hub";
+    
+    // Add to navigation history
+    navigationHistory.push('home');
     
     // Render both upcoming and past events
     renderEventGallery();
